@@ -46,7 +46,7 @@ const SiblingsSection = ({ formData, setFormData }) => {
     const currentSiblings = [...formData.siblings];
     if (total > currentSiblings.length) {
       // Add new empty siblings
-      const newSiblings = Array(total - currentSiblings.length).fill().map(() => ({
+      const newSiblings = Array(total - currentSiblings.length).fill(null).map(() => ({
         name: '',
         age: '',
         institution: '',
