@@ -62,13 +62,13 @@ const SiblingsSection = ({ formData, setFormData }) => {
     <div className="container-fluid">
       <div className="row g-4">
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-primary text-white">
-              <h5 className="card-title mb-0">Family Information - Siblings</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-primary">
+              <h5 className="card-title">Family Information - Siblings</h5>
             </div>
-            <div className="card-body">
+            <div className="custom-card-body">
               <div className="mb-3">
-                <label htmlFor="totalSiblings" className="form-label fs-5 fw-bold">Total Number of Siblings *</label>
+                <label htmlFor="totalSiblings" className="form-label">Total Number of Siblings *</label>
                 <select
                   id="totalSiblings"
                   className="form-select"
@@ -103,9 +103,9 @@ const SiblingsSection = ({ formData, setFormData }) => {
 
             {formData.siblings.map((sibling, index) => (
               <div key={index} className="col-12">
-                <div className="card border-0 shadow-sm border-start border-success border-4">
-                  <div className="card-header d-flex justify-content-between align-items-center bg-success text-white">
-                    <h5 className="card-title mb-0">Sibling {index + 1}</h5>
+                <div className="custom-card border-start border-success">
+                  <div className="custom-card-header bg-success d-flex justify-content-between align-items-center">
+                    <h5 className="card-title">Sibling {index + 1}</h5>
                     <button
                       onClick={() => removeSibling(index)}
                       className="btn btn-danger btn-sm d-flex align-items-center"
@@ -115,11 +115,11 @@ const SiblingsSection = ({ formData, setFormData }) => {
                       Remove
                     </button>
                   </div>
-                  <div className="card-body">
+                  <div className="custom-card-body">
                     <div className="row g-4">
                       <div className="col-12 col-md-6">
                         <div className="mb-3">
-                          <label htmlFor={`siblingName${index}`} className="form-label fs-5 fw-bold">Name *</label>
+                          <label htmlFor={`siblingName${index}`} className="form-label">Name *</label>
                           <input
                             id={`siblingName${index}`}
                             type="text"
@@ -134,7 +134,7 @@ const SiblingsSection = ({ formData, setFormData }) => {
                       
                       <div className="col-12 col-md-6">
                         <div className="mb-3">
-                          <label htmlFor={`siblingAge${index}`} className="form-label fs-5 fw-bold">Age *</label>
+                          <label htmlFor={`siblingAge${index}`} className="form-label">Age *</label>
                           <input
                             id={`siblingAge${index}`}
                             type="number"
@@ -151,7 +151,7 @@ const SiblingsSection = ({ formData, setFormData }) => {
                       
                       <div className="col-12 col-md-6">
                         <div className="mb-3">
-                          <label htmlFor={`siblingInstitution${index}`} className="form-label fs-5 fw-bold">School/University *</label>
+                          <label htmlFor={`siblingInstitution${index}`} className="form-label">School/University *</label>
                           <input
                             id={`siblingInstitution${index}`}
                             type="text"
@@ -166,7 +166,7 @@ const SiblingsSection = ({ formData, setFormData }) => {
                       
                       <div className="col-12 col-md-6">
                         <div className="mb-3">
-                          <label htmlFor={`siblingFee${index}`} className="form-label fs-5 fw-bold">Monthly Fee *</label>
+                          <label htmlFor={`siblingFee${index}`} className="form-label">Monthly Fee *</label>
                           <input
                             id={`siblingFee${index}`}
                             type="number"
@@ -188,16 +188,14 @@ const SiblingsSection = ({ formData, setFormData }) => {
         )}
 
         <div className="col-12">
-          <div className="card bg-info bg-opacity-10 border-info">
-            <div className="card-body">
-              <div className="text-info-emphasis">
-                <h6 className="fw-bold mb-2">Important Notes:</h6>
-                <ul className="mb-0 small">
-                  <li>Include all siblings who are currently studying</li>
-                  <li>Provide accurate fee information as this affects scholarship calculations</li>
-                  <li>If any sibling is not studying, you can enter "Not Applicable" in the institution field</li>
-                </ul>
-              </div>
+          <div className="alert alert-info">
+            <div className="text-info">
+              <h6 className="fw-bold mb-2">Important Notes:</h6>
+              <ul className="mb-0" style={{ fontSize: '0.875rem' }}>
+                <li>Include all siblings who are currently studying</li>
+                <li>Provide accurate fee information as this affects scholarship calculations</li>
+                <li>If any sibling is not studying, you can enter "Not Applicable" in the institution field</li>
+              </ul>
             </div>
           </div>
         </div>

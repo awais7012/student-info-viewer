@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import PersonalInfoSection from "./form-sections/PersonalInfoSection";
@@ -109,9 +110,9 @@ const StudentApplicationForm = () => {
     <div className="container-fluid">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
-          <div className="card shadow-lg border-0 form-section">
-            <div className="card-header bg-gradient-custom text-white text-center py-4">
-              <h2 className="card-title mb-3 fs-2">
+          <div className="card shadow-lg form-section">
+            <div className="card-header">
+              <h2 className="card-title mb-3">
                 {sections[currentStep].title}
               </h2>
               <div className="mb-3">
@@ -121,7 +122,7 @@ const StudentApplicationForm = () => {
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
-                <p className="mt-2 mb-0 text-light">
+                <p className="mt-2 text-light">
                   Step {currentStep + 1} of {sections.length}
                 </p>
               </div>
@@ -153,7 +154,7 @@ const StudentApplicationForm = () => {
                 ) : (
                   <button
                     onClick={handleNext}
-                    className="btn-custom-primary d-flex align-items-center"
+                    className="btn btn-custom-primary d-flex align-items-center"
                   >
                     Next
                     <ChevronRight className="ms-2" size={16} />

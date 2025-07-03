@@ -8,30 +8,32 @@ const ScholarshipSection = ({ formData, setFormData }) => {
     <div className="container-fluid">
       <div className="row g-4">
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-primary text-white">
-              <h5 className="card-title mb-0">Previous Scholarship Information</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-primary">
+              <h5 className="card-title">Previous Scholarship Information</h5>
             </div>
-            <div className="card-body">
-              <div className="form-check p-4 bg-primary bg-opacity-10 rounded mb-4">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="previousScholarship"
-                  checked={formData.previousScholarship}
-                  onChange={(e) => handleChange('previousScholarship', e.target.checked)}
-                />
-                <label className="form-check-label fs-5 fw-bold" htmlFor="previousScholarship">
-                  Have you received any scholarship before?
-                </label>
+            <div className="custom-card-body">
+              <div className="custom-checkbox-container">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="previousScholarship"
+                    checked={formData.previousScholarship}
+                    onChange={(e) => handleChange('previousScholarship', e.target.checked)}
+                  />
+                  <label className="form-check-label" htmlFor="previousScholarship">
+                    Have you received any scholarship before?
+                  </label>
+                </div>
               </div>
 
               {formData.previousScholarship && (
-                <div className="p-4 bg-primary bg-opacity-10 rounded">
+                <div className="bg-primary-light">
                   <div className="row g-4">
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="scholarshipAmount" className="form-label fs-5 fw-bold">Scholarship Amount *</label>
+                        <label htmlFor="scholarshipAmount" className="form-label">Scholarship Amount *</label>
                         <input
                           id="scholarshipAmount"
                           type="number"
@@ -46,7 +48,7 @@ const ScholarshipSection = ({ formData, setFormData }) => {
                     
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="scholarshipDuration" className="form-label fs-5 fw-bold">Duration/Details *</label>
+                        <label htmlFor="scholarshipDuration" className="form-label">Duration/Details *</label>
                         <input
                           id="scholarshipDuration"
                           type="text"
@@ -66,13 +68,13 @@ const ScholarshipSection = ({ formData, setFormData }) => {
         </div>
 
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-info text-white">
-              <h5 className="card-title mb-0">Application Details</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-info">
+              <h5 className="card-title">Application Details</h5>
             </div>
-            <div className="card-body">
+            <div className="custom-card-body">
               <div className="mb-3">
-                <label htmlFor="applicationDate" className="form-label fs-5 fw-bold">Application Date *</label>
+                <label htmlFor="applicationDate" className="form-label">Application Date *</label>
                 <input
                   id="applicationDate"
                   type="date"
@@ -87,17 +89,15 @@ const ScholarshipSection = ({ formData, setFormData }) => {
         </div>
 
         <div className="col-12">
-          <div className="card bg-success bg-opacity-10 border-success">
-            <div className="card-body">
-              <div className="text-success-emphasis">
-                <h6 className="fw-bold mb-2">Application Guidelines:</h6>
-                <ul className="mb-0 small">
-                  <li>Ensure all information provided is accurate and verifiable</li>
-                  <li>Submit all required documents in clear, readable format</li>
-                  <li>Keep copies of all submitted documents for your records</li>
-                  <li>Contact administration for any clarifications needed</li>
-                </ul>
-              </div>
+          <div className="alert alert-success">
+            <div className="text-success">
+              <h6 className="fw-bold mb-2">Application Guidelines:</h6>
+              <ul className="mb-0" style={{ fontSize: '0.875rem' }}>
+                <li>Ensure all information provided is accurate and verifiable</li>
+                <li>Submit all required documents in clear, readable format</li>
+                <li>Keep copies of all submitted documents for your records</li>
+                <li>Contact administration for any clarifications needed</li>
+              </ul>
             </div>
           </div>
         </div>

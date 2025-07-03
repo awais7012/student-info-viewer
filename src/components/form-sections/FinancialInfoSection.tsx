@@ -8,13 +8,13 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
       <div className="row g-4">
         {/* Total Income */}
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-primary text-white">
-              <h5 className="card-title mb-0">Total Family Income</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-primary">
+              <h5 className="card-title">Total Family Income</h5>
             </div>
-            <div className="card-body">
+            <div className="custom-card-body">
               <div className="mb-3">
-                <label htmlFor="totalIncome" className="form-label fs-5 fw-bold">Total Income from All Sources (Monthly) *</label>
+                <label htmlFor="totalIncome" className="form-label">Total Income from All Sources (Monthly) *</label>
                 <input
                   id="totalIncome"
                   type="number"
@@ -31,13 +31,13 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
         {/* Residency Details */}
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-info text-white">
-              <h5 className="card-title mb-0">Residency Details</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-info">
+              <h5 className="card-title">Residency Details</h5>
             </div>
-            <div className="card-body">
+            <div className="custom-card-body">
               <div className="mb-4">
-                <label className="form-label fs-5 fw-bold">Type of Residence *</label>
+                <label className="form-label">Type of Residence *</label>
                 <div className="mt-2">
                   <div className="form-check">
                     <input
@@ -68,7 +68,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
               {formData.residencyType === 'owned' && (
                 <div className="mb-3">
-                  <label htmlFor="propertySize" className="form-label fs-5 fw-bold">Property Size (sq ft) *</label>
+                  <label htmlFor="propertySize" className="form-label">Property Size (sq ft) *</label>
                   <input
                     id="propertySize"
                     type="text"
@@ -83,7 +83,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
               {formData.residencyType === 'rented' && (
                 <div className="mb-3">
-                  <label htmlFor="rentAmount" className="form-label fs-5 fw-bold">Monthly Rent Amount *</label>
+                  <label htmlFor="rentAmount" className="form-label">Monthly Rent Amount *</label>
                   <input
                     id="rentAmount"
                     type="number"
@@ -101,15 +101,15 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
         {/* Other Properties */}
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-secondary text-white">
-              <h5 className="card-title mb-0">Other Property Details (Optional)</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-secondary">
+              <h5 className="card-title">Other Property Details (Optional)</h5>
             </div>
-            <div className="card-body">
+            <div className="custom-card-body">
               <div className="row g-3">
                 <div className="col-12">
                   <div className="mb-3">
-                    <label htmlFor="landDetails" className="form-label fs-5 fw-bold">Land Details</label>
+                    <label htmlFor="landDetails" className="form-label">Land Details</label>
                     <textarea
                       id="landDetails"
                       className="form-control"
@@ -123,7 +123,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
                 <div className="col-12">
                   <div className="mb-3">
-                    <label htmlFor="cattleDetails" className="form-label fs-5 fw-bold">Cattle/Livestock Details</label>
+                    <label htmlFor="cattleDetails" className="form-label">Cattle/Livestock Details</label>
                     <textarea
                       id="cattleDetails"
                       className="form-control"
@@ -137,7 +137,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
                 <div className="col-12">
                   <div className="mb-3">
-                    <label htmlFor="vehicleDetails" className="form-label fs-5 fw-bold">Vehicle Details</label>
+                    <label htmlFor="vehicleDetails" className="form-label">Vehicle Details</label>
                     <textarea
                       id="vehicleDetails"
                       className="form-control"
@@ -155,30 +155,32 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
         {/* Mother/Other Earnings */}
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-success text-white">
-              <h5 className="card-title mb-0">Additional Family Earnings</h5>
+          <div className="custom-card">
+            <div className="custom-card-header bg-success">
+              <h5 className="card-title">Additional Family Earnings</h5>
             </div>
-            <div className="card-body">
-              <div className="form-check p-4 bg-success bg-opacity-10 rounded mb-4">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="motherEarning"
-                  checked={formData.motherEarning}
-                  onChange={(e) => handleChange('motherEarning', e.target.checked)}
-                />
-                <label className="form-check-label fs-5 fw-bold" htmlFor="motherEarning">
-                  Does your mother or any other family member earn?
-                </label>
+            <div className="custom-card-body">
+              <div className="custom-checkbox-container">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="motherEarning"
+                    checked={formData.motherEarning}
+                    onChange={(e) => handleChange('motherEarning', e.target.checked)}
+                  />
+                  <label className="form-check-label" htmlFor="motherEarning">
+                    Does your mother or any other family member earn?
+                  </label>
+                </div>
               </div>
 
               {formData.motherEarning && (
-                <div className="p-4 bg-success bg-opacity-10 rounded">
+                <div className="bg-success-light">
                   <div className="row g-4">
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="motherName" className="form-label fs-5 fw-bold">Name *</label>
+                        <label htmlFor="motherName" className="form-label">Name *</label>
                         <input
                           id="motherName"
                           type="text"
@@ -193,7 +195,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
                     
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="motherDesignation" className="form-label fs-5 fw-bold">Designation *</label>
+                        <label htmlFor="motherDesignation" className="form-label">Designation *</label>
                         <input
                           id="motherDesignation"
                           type="text"
@@ -208,7 +210,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="motherPhone" className="form-label fs-5 fw-bold">Phone Number *</label>
+                        <label htmlFor="motherPhone" className="form-label">Phone Number *</label>
                         <input
                           id="motherPhone"
                           type="text"
@@ -223,7 +225,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
                     
                     <div className="col-12 col-md-6">
                       <div className="mb-3">
-                        <label htmlFor="motherIncome" className="form-label fs-5 fw-bold">Monthly Income *</label>
+                        <label htmlFor="motherIncome" className="form-label">Monthly Income *</label>
                         <input
                           id="motherIncome"
                           type="number"
@@ -238,7 +240,7 @@ const FinancialInfoSection = ({ formData, setFormData }) => {
 
                     <div className="col-12">
                       <div className="mb-3">
-                        <label htmlFor="motherAddress" className="form-label fs-5 fw-bold">Work Address *</label>
+                        <label htmlFor="motherAddress" className="form-label">Work Address *</label>
                         <textarea
                           id="motherAddress"
                           className="form-control"

@@ -49,23 +49,23 @@ const EducationSection = ({ formData, setFormData }) => {
     <div className="container-fluid">
       <div className="row g-4">
         <div className="col-12">
-          <div className="text-center p-4 bg-primary bg-opacity-10 rounded">
+          <div className="text-center bg-primary-light">
             <h3 className="fs-4 fw-bold text-primary">Educational Background Record</h3>
-            <p className="text-primary mt-2 mb-0">Please fill in your educational history with accurate information</p>
+            <p className="text-primary mt-2">Please fill in your educational history with accurate information</p>
           </div>
         </div>
 
         {educationLevels.map((level, index) => (
           <div key={index} className="col-12">
-            <div className="card border-0 shadow-sm border-start border-primary border-4">
-              <div className="card-header bg-primary text-white">
-                <h5 className="card-title mb-0">{level.title}</h5>
+            <div className="custom-card border-start border-primary">
+              <div className="custom-card-header bg-primary">
+                <h5 className="card-title">{level.title}</h5>
               </div>
-              <div className="card-body">
+              <div className="custom-card-body">
                 <div className="row g-4">
                   <div className="col-12 col-md-6">
                     <div className="mb-3">
-                      <label htmlFor={level.fields.marks} className="form-label fs-5 fw-bold">Total Marks</label>
+                      <label htmlFor={level.fields.marks} className="form-label">Total Marks</label>
                       <input
                         id={level.fields.marks}
                         type="number"
@@ -79,7 +79,7 @@ const EducationSection = ({ formData, setFormData }) => {
                   
                   <div className="col-12 col-md-6">
                     <div className="mb-3">
-                      <label htmlFor={level.fields.year} className="form-label fs-5 fw-bold">Year</label>
+                      <label htmlFor={level.fields.year} className="form-label">Year</label>
                       <input
                         id={level.fields.year}
                         type="number"
@@ -95,7 +95,7 @@ const EducationSection = ({ formData, setFormData }) => {
                   
                   <div className="col-12 col-md-6">
                     <div className="mb-3">
-                      <label htmlFor={level.fields.percentage} className="form-label fs-5 fw-bold">Percentage</label>
+                      <label htmlFor={level.fields.percentage} className="form-label">Percentage</label>
                       <input
                         id={level.fields.percentage}
                         type="number"
@@ -112,7 +112,7 @@ const EducationSection = ({ formData, setFormData }) => {
                   
                   <div className="col-12 col-md-6">
                     <div className="mb-3">
-                      <label htmlFor={level.fields.institute} className="form-label fs-5 fw-bold">Institute/School</label>
+                      <label htmlFor={level.fields.institute} className="form-label">Institute/School</label>
                       <input
                         id={level.fields.institute}
                         type="text"
@@ -125,9 +125,9 @@ const EducationSection = ({ formData, setFormData }) => {
                   </div>
                 </div>
                 
-                <div className="mt-4 p-3 bg-light rounded">
+                <div className="mt-4 p-3 bg-light" style={{ borderRadius: '0.375rem' }}>
                   <label className="form-label fw-bold text-muted">Attach Documents (Result Cards/Certificates)</label>
-                  <button className="btn btn-outline-secondary w-100 mt-2" type="button">
+                  <button className="btn btn-outline-secondary d-flex align-items-center" style={{ width: '100%', marginTop: '0.5rem' }} type="button">
                     <Upload className="me-2" size={16} />
                     Upload {level.title} Documents
                   </button>
@@ -138,12 +138,10 @@ const EducationSection = ({ formData, setFormData }) => {
         ))}
 
         <div className="col-12">
-          <div className="card bg-warning bg-opacity-10 border-warning">
-            <div className="card-body">
-              <div className="d-flex align-items-center text-warning-emphasis">
-                <span className="fw-bold me-2">Note:</span>
-                <span>Please ensure all marks and percentages are accurate. Attach clear copies of all result cards and certificates.</span>
-              </div>
+          <div className="alert alert-warning">
+            <div className="d-flex align-items-center text-warning">
+              <span className="fw-bold me-2">Note:</span>
+              <span>Please ensure all marks and percentages are accurate. Attach clear copies of all result cards and certificates.</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 
 import StudentApplicationForm from "@/components/StudentApplicationForm";
+import "@/styles/custom.css";
 
 const Index = () => {
   return (
@@ -16,4 +17,3 @@ const Index = () => {
 };
 
 export default Index;
-
