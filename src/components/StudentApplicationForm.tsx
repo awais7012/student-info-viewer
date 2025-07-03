@@ -1,8 +1,4 @@
-
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import PersonalInfoSection from "./form-sections/PersonalInfoSection";
 import GuardianInfoSection from "./form-sections/GuardianInfoSection";
@@ -110,56 +106,68 @@ const StudentApplicationForm = () => {
   const CurrentSection = sections[currentStep].component;
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <Card className="shadow-xl border-0">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
-          <CardTitle className="text-2xl text-center">
-            {sections[currentStep].title}
-          </CardTitle>
-          <div className="mt-4">
-            <Progress value={progress} className="h-2" />
-            <p className="text-center mt-2 text-blue-100">
-              Step {currentStep + 1} of {sections.length}
-            </p>
-          </div>
-        </CardHeader>
-        
-        <CardContent className="p-8">
-          <CurrentSection 
-            formData={formData} 
-            setFormData={setFormData}
-          />
-          
-          <div className="flex justify-between mt-8">
-            <Button
-              onClick={handlePrevious}
-              disabled={currentStep === 0}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Previous
-            </Button>
+    <div className="container-fluid">
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-8">
+          <div className="card shadow-lg border-0 form-section">
+            <div className="card-header bg-gradient-custom text-white text-center py-4">
+              <h2 className="card-title mb-3 fs-2">
+                {sections[currentStep].title}
+              </h2>
+              <div className="mb-3">
+                <div className="progress" style={{ height: '8px' }}>
+                  <div 
+                    className="progress-bar bg-light" 
+                    role="progressbar" 
+                    style={{ width: `${progress}%` }}
+                    aria-valuenow={progress} 
+                    aria-valuemin={0} 
+                    aria-valuemax={100}
+                  ></div>
+                </div>
+                <p className="mt-2 mb-0 text-light">
+                  Step {currentStep + 1} of {sections.length}
+                </p>
+              </div>
+            </div>
             
-            {currentStep === sections.length - 1 ? (
-              <Button
-                onClick={handleSubmit}
-                className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
-              >
-                Submit Application
-              </Button>
-            ) : (
-              <Button
-                onClick={handleNext}
-                className="flex items-center gap-2"
-              >
-                Next
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            )}
+            <div className="card-body p-4 p-md-5">
+              <CurrentSection 
+                formData={formData} 
+                setFormData={setFormData}
+              />
+              
+              <div className="d-flex justify-content-between mt-4">
+                <button
+                  onClick={handlePrevious}
+                  disabled={currentStep === 0}
+                  className="btn btn-outline-secondary d-flex align-items-center"
+                >
+                  <ChevronLeft className="me-2" size={16} />
+                  Previous
+                </button>
+                
+                {currentStep === sections.length - 1 ? (
+                  <button
+                    onClick={handleSubmit}
+                    className="btn btn-success d-flex align-items-center"
+                  >
+                    Submit Application
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleNext}
+                    className="btn btn-primary d-flex align-items-center"
+                  >
+                    Next
+                    <ChevronRight className="ms-2" size={16} />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
