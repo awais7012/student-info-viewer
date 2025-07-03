@@ -115,14 +115,10 @@ const StudentApplicationForm = () => {
                 {sections[currentStep].title}
               </h2>
               <div className="mb-3">
-                <div className="progress" style={{ height: '8px' }}>
+                <div className="custom-progress">
                   <div 
-                    className="progress-bar bg-light" 
-                    role="progressbar" 
+                    className="custom-progress-bar" 
                     style={{ width: `${progress}%` }}
-                    aria-valuenow={progress} 
-                    aria-valuemin={0} 
-                    aria-valuemax={100}
                   ></div>
                 </div>
                 <p className="mt-2 mb-0 text-light">
@@ -157,7 +153,7 @@ const StudentApplicationForm = () => {
                 ) : (
                   <button
                     onClick={handleNext}
-                    className="btn btn-primary d-flex align-items-center"
+                    className="btn-custom-primary d-flex align-items-center"
                   >
                     Next
                     <ChevronRight className="ms-2" size={16} />

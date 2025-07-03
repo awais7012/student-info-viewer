@@ -8,31 +8,33 @@ const GuardianInfoSection = ({ formData, setFormData }) => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <div className="form-check p-4 bg-primary bg-opacity-10 rounded mb-4">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="fatherAlive"
-              checked={formData.fatherAlive}
-              onChange={(e) => handleChange('fatherAlive', e.target.checked)}
-            />
-            <label className="form-check-label fs-5 fw-bold" htmlFor="fatherAlive">
-              Is your father alive?
-            </label>
+          <div className="custom-checkbox-container">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="fatherAlive"
+                checked={formData.fatherAlive}
+                onChange={(e) => handleChange('fatherAlive', e.target.checked)}
+              />
+              <label className="custom-checkbox-label" htmlFor="fatherAlive">
+                Is your father alive?
+              </label>
+            </div>
           </div>
 
           {!formData.fatherAlive && (
-            <div className="p-4 bg-warning bg-opacity-10 rounded">
+            <div className="bg-warning-light">
               <h3 className="fs-4 fw-bold text-dark mb-4">Guardian Information</h3>
               
               <div className="row g-4">
                 <div className="col-12 col-md-6">
                   <div className="mb-3">
-                    <label htmlFor="guardianName" className="form-label fs-5 fw-bold">Guardian Name *</label>
+                    <label htmlFor="guardianName" className="custom-form-label">Guardian Name *</label>
                     <input
                       id="guardianName"
                       type="text"
-                      className="form-control"
+                      className="form-control custom-form-control"
                       value={formData.guardianName}
                       onChange={(e) => handleChange('guardianName', e.target.value)}
                       placeholder="Enter guardian's full name"
@@ -43,10 +45,10 @@ const GuardianInfoSection = ({ formData, setFormData }) => {
                 
                 <div className="col-12 col-md-6">
                   <div className="mb-3">
-                    <label htmlFor="relationship" className="form-label fs-5 fw-bold">Relationship *</label>
+                    <label htmlFor="relationship" className="custom-form-label">Relationship *</label>
                     <select
                       id="relationship"
-                      className="form-select"
+                      className="form-select custom-form-control"
                       value={formData.relationship}
                       onChange={(e) => handleChange('relationship', e.target.value)}
                       required
@@ -66,11 +68,11 @@ const GuardianInfoSection = ({ formData, setFormData }) => {
 
                 <div className="col-12 col-md-6">
                   <div className="mb-3">
-                    <label htmlFor="guardianEmail" className="form-label fs-5 fw-bold">Guardian Email</label>
+                    <label htmlFor="guardianEmail" className="custom-form-label">Guardian Email</label>
                     <input
                       id="guardianEmail"
                       type="email"
-                      className="form-control"
+                      className="form-control custom-form-control"
                       value={formData.guardianEmail}
                       onChange={(e) => handleChange('guardianEmail', e.target.value)}
                       placeholder="guardian@example.com"
@@ -80,11 +82,11 @@ const GuardianInfoSection = ({ formData, setFormData }) => {
                 
                 <div className="col-12 col-md-6">
                   <div className="mb-3">
-                    <label htmlFor="guardianPhone" className="form-label fs-5 fw-bold">Guardian Phone *</label>
+                    <label htmlFor="guardianPhone" className="custom-form-label">Guardian Phone *</label>
                     <input
                       id="guardianPhone"
                       type="text"
-                      className="form-control"
+                      className="form-control custom-form-control"
                       value={formData.guardianPhone}
                       onChange={(e) => handleChange('guardianPhone', e.target.value)}
                       placeholder="Enter phone number"
@@ -95,10 +97,10 @@ const GuardianInfoSection = ({ formData, setFormData }) => {
 
                 <div className="col-12">
                   <div className="mb-3">
-                    <label htmlFor="guardianAddress" className="form-label fs-5 fw-bold">Guardian Address *</label>
+                    <label htmlFor="guardianAddress" className="custom-form-label">Guardian Address *</label>
                     <textarea
                       id="guardianAddress"
-                      className="form-control"
+                      className="form-control custom-form-control"
                       value={formData.guardianAddress}
                       onChange={(e) => handleChange('guardianAddress', e.target.value)}
                       placeholder="Enter complete address"

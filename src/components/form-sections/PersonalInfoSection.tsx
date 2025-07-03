@@ -9,11 +9,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
       <div className="row g-4">
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="registration" className="form-label fw-bold">Registration Number</label>
+            <label htmlFor="registration" className="custom-form-label">Registration Number</label>
             <input
               id="registration"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.registration || ""}
               readOnly
             />
@@ -22,11 +22,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
         
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="name" className="form-label fw-bold">Name</label>
+            <label htmlFor="name" className="custom-form-label">Name</label>
             <input
               id="name"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.name || ""}
               readOnly
             />
@@ -35,11 +35,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
 
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="fatherName" className="form-label fw-bold">Father Name</label>
+            <label htmlFor="fatherName" className="custom-form-label">Father Name</label>
             <input
               id="fatherName"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.fatherName || ""}
               readOnly
             />
@@ -48,11 +48,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
         
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="fatherContact" className="form-label fw-bold">Father Contact</label>
+            <label htmlFor="fatherContact" className="custom-form-label">Father Contact</label>
             <input
               id="fatherContact"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.fatherContact || ""}
               readOnly
             />
@@ -61,11 +61,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
 
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="session" className="form-label fw-bold">Session</label>
+            <label htmlFor="session" className="custom-form-label">Session</label>
             <input
               id="session"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.session || ""}
               readOnly
             />
@@ -74,11 +74,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
         
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="department" className="form-label fw-bold">Department</label>
+            <label htmlFor="department" className="custom-form-label">Department</label>
             <input
               id="department"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.department || ""}
               readOnly
             />
@@ -87,11 +87,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
 
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="class" className="form-label fw-bold">Class</label>
+            <label htmlFor="class" className="custom-form-label">Class</label>
             <input
               id="class"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.class || ""}
               readOnly
             />
@@ -100,11 +100,11 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
         
         <div className="col-12 col-md-6">
           <div className="mb-3">
-            <label htmlFor="studentContact" className="form-label fw-bold">Student Contact</label>
+            <label htmlFor="studentContact" className="custom-form-label">Student Contact</label>
             <input
               id="studentContact"
               type="text"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.studentContact || ""}
               readOnly
             />
@@ -113,10 +113,10 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
 
         <div className="col-12">
           <div className="mb-3">
-            <label htmlFor="address" className="form-label fw-bold">Permanent Address</label>
+            <label htmlFor="address" className="custom-form-label">Permanent Address</label>
             <textarea
               id="address"
-              className="form-control bg-light"
+              className="form-control custom-form-control bg-light"
               value={formData.address || ""}
               readOnly
               rows={3}
@@ -129,4 +129,3 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
 };
 
 export default PersonalInfoSection;
-

@@ -1,7 +1,7 @@
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-/* Custom CSS for additional styling if needed */
+/* Custom CSS to replicate original Tailwind design */
 .bg-gradient-custom {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -12,3 +12,218 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Custom card styling to match original */
+.custom-card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.custom-card-header {
+  border-radius: 8px 8px 0 0;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0;
+}
+
+.custom-card-body {
+  padding: 1.5rem;
+}
+
+/* Primary theme colors */
+.bg-primary-custom {
+  background-color: #0d6efd;
+}
+
+.bg-info-custom {
+  background-color: #0dcaf0;
+}
+
+.bg-success-custom {
+  background-color: #198754;
+}
+
+.bg-secondary-custom {
+  background-color: #6c757d;
+}
+
+.bg-warning-custom {
+  background-color: #ffc107;
+}
+
+/* Light background variants */
+.bg-primary-light {
+  background-color: rgba(13, 110, 253, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.bg-info-light {
+  background-color: rgba(13, 202, 240, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.bg-success-light {
+  background-color: rgba(25, 135, 84, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.bg-warning-light {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+/* Form styling */
+.custom-form-label {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.custom-form-control {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.custom-form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Checkbox styling */
+.custom-checkbox-container {
+  background-color: rgba(13, 110, 253, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.custom-checkbox-label {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-left: 0.5rem;
+}
+
+/* Border accent */
+.border-left-primary {
+  border-left: 4px solid #0d6efd;
+}
+
+.border-left-success {
+  border-left: 4px solid #198754;
+}
+
+/* Button styling */
+.btn-custom-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s;
+}
+
+.btn-custom-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+/* Progress bar styling */
+.custom-progress {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.custom-progress-bar {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Text colors */
+.text-primary-emphasis {
+  color: #0a58ca;
+}
+
+.text-success-emphasis {
+  color: #146c43;
+}
+
+.text-info-emphasis {
+  color: #087990;
+}
+
+.text-warning-emphasis {
+  color: #997404;
+}
+
+/* Upload button styling */
+.btn-upload {
+  border: 2px dashed #6c757d;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-radius: 6px;
+  padding: 1rem;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.btn-upload:hover {
+  border-color: #0d6efd;
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Alert styling */
+.custom-alert {
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.custom-alert-success {
+  background-color: rgba(25, 135, 84, 0.1);
+  border: 1px solid rgba(25, 135, 84, 0.3);
+  color: #146c43;
+}
+
+.custom-alert-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  color: #997404;
+}
+
+.custom-alert-info {
+  background-color: rgba(13, 202, 240, 0.1);
+  border: 1px solid rgba(13, 202, 240, 0.3);
+  color: #087990;
+}
+
+/* Small text */
+.text-small {
+  font-size: 0.875rem;
+}
+
+/* Spacing utilities */
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.p-4 {
+  padding: 1.5rem !important;
+}
