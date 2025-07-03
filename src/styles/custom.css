@@ -10,7 +10,7 @@
 }
 
 .bg-gradient-custom {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
 }
 
 .py-4 {
@@ -156,7 +156,7 @@
 }
 
 .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
   color: white;
   padding: 2rem;
   text-align: center;
@@ -184,7 +184,7 @@
 
 .custom-progress-bar {
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #F4A460;
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -211,8 +211,8 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  border-color: #8B1538;
+  box-shadow: 0 0 0 0.2rem rgba(139, 21, 56, 0.25);
 }
 
 .form-control:read-only {
@@ -259,8 +259,8 @@ textarea.form-control {
 }
 
 .form-check-input:checked {
-  background-color: #667eea;
-  border-color: #667eea;
+  background-color: #8B1538;
+  border-color: #8B1538;
 }
 
 .form-check-label {
@@ -275,48 +275,48 @@ textarea.form-control {
   border-radius: 50%;
 }
 
-/* Background colors */
+/* Background colors - GCU Theme */
 .bg-primary {
-  background-color: #667eea;
+  background-color: #8B1538;
 }
 
 .bg-info {
-  background-color: #06b6d4;
+  background-color: #B8860B;
 }
 
 .bg-success {
-  background-color: #10b981;
+  background-color: #2F5233;
 }
 
 .bg-warning {
-  background-color: #f59e0b;
+  background-color: #DAA520;
 }
 
 .bg-secondary {
   background-color: #6b7280;
 }
 
-/* Light background variants */
+/* Light background variants - GCU Theme */
 .bg-primary-light {
-  background-color: rgba(102, 126, 234, 0.1);
+  background-color: rgba(139, 21, 56, 0.1);
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
 
 .bg-info-light {
-  background-color: rgba(6, 182, 212, 0.1);
+  background-color: rgba(184, 134, 11, 0.1);
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
 
 .bg-success-light {
-  background-color: rgba(16, 185, 129, 0.1);
+  background-color: rgba(47, 82, 51, 0.1);
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
 
 .bg-warning-light {
-  background-color: rgba(245, 158, 11, 0.1);
+  background-color: rgba(218, 165, 32, 0.1);
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
@@ -339,19 +339,19 @@ textarea.form-control {
 }
 
 .custom-card-header.bg-primary {
-  background-color: #667eea;
+  background-color: #8B1538;
 }
 
 .custom-card-header.bg-info {
-  background-color: #06b6d4;
+  background-color: #B8860B;
 }
 
 .custom-card-header.bg-success {
-  background-color: #10b981;
+  background-color: #2F5233;
 }
 
 .custom-card-header.bg-warning {
-  background-color: #f59e0b;
+  background-color: #DAA520;
 }
 
 .custom-card-header.bg-secondary {
@@ -362,7 +362,7 @@ textarea.form-control {
   padding: 1.5rem;
 }
 
-/* Border utilities */
+/* Border utilities - GCU Theme */
 .border-0 {
   border: none;
 }
@@ -372,22 +372,22 @@ textarea.form-control {
 }
 
 .border-primary {
-  border-color: #667eea;
+  border-color: #8B1538;
 }
 
 .border-success {
-  border-color: #10b981;
+  border-color: #2F5233;
 }
 
 .border-info {
-  border-color: #06b6d4;
+  border-color: #B8860B;
 }
 
 .border-warning {
-  border-color: #f59e0b;
+  border-color: #DAA520;
 }
 
-/* Button styles */
+/* Button styles - GCU Theme */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -418,16 +418,16 @@ textarea.form-control {
 }
 
 .btn-success {
-  background-color: #10b981;
+  background-color: #2F5233;
   color: white;
 }
 
 .btn-success:hover {
-  background-color: #059669;
+  background-color: #1e3322;
 }
 
 .btn-custom-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
   color: white;
   border: none;
 }
@@ -439,12 +439,12 @@ textarea.form-control {
 
 .btn-outline-primary {
   background-color: transparent;
-  color: #667eea;
-  border: 1px solid #667eea;
+  color: #8B1538;
+  border: 1px solid #8B1538;
 }
 
 .btn-outline-primary:hover {
-  background-color: #667eea;
+  background-color: #8B1538;
   color: white;
 }
 
@@ -481,15 +481,15 @@ textarea.form-control {
   padding: 0;
 }
 
-/* Special checkbox container */
+/* Special checkbox container - GCU Theme */
 .custom-checkbox-container {
-  background-color: rgba(102, 126, 234, 0.1);
+  background-color: rgba(139, 21, 56, 0.1);
   border-radius: 0.5rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* Alert styles */
+/* Alert styles - GCU Theme */
 .alert {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -497,38 +497,38 @@ textarea.form-control {
 }
 
 .alert-success {
-  background-color: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #065f46;
+  background-color: rgba(47, 82, 51, 0.1);
+  border: 1px solid rgba(47, 82, 51, 0.3);
+  color: #1e3322;
 }
 
 .alert-warning {
-  background-color: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: #92400e;
+  background-color: rgba(218, 165, 32, 0.1);
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  color: #b8860b;
 }
 
 .alert-info {
-  background-color: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  color: #0c4a6e;
+  background-color: rgba(184, 134, 11, 0.1);
+  border: 1px solid rgba(184, 134, 11, 0.3);
+  color: #996f0d;
 }
 
-/* Text colors */
+/* Text colors - GCU Theme */
 .text-primary {
-  color: #667eea;
+  color: #8B1538;
 }
 
 .text-success {
-  color: #10b981;
+  color: #2F5233;
 }
 
 .text-info {
-  color: #06b6d4;
+  color: #B8860B;
 }
 
 .text-warning {
-  color: #f59e0b;
+  color: #DAA520;
 }
 
 .text-muted {
