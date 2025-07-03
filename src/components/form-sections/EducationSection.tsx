@@ -1,8 +1,4 @@
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 
 const EducationSection = ({ formData, setFormData }) => {
@@ -50,87 +46,108 @@ const EducationSection = ({ formData, setFormData }) => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="text-center p-4 bg-blue-50 rounded-lg">
-        <h3 className="text-xl font-semibold text-blue-800">Educational Background Record</h3>
-        <p className="text-blue-600 mt-2">Please fill in your educational history with accurate information</p>
-      </div>
-
-      {educationLevels.map((level, index) => (
-        <Card key={index} className="border-l-4 border-l-blue-500">
-          <CardHeader>
-            <CardTitle className="text-lg text-blue-700">{level.title}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor={level.fields.marks} className="text-lg font-semibold">Total Marks</Label>
-                <Input
-                  id={level.fields.marks}
-                  type="number"
-                  value={formData[level.fields.marks]}
-                  onChange={(e) => handleChange(level.fields.marks, e.target.value)}
-                  placeholder="Enter total marks"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor={level.fields.year} className="text-lg font-semibold">Year</Label>
-                <Input
-                  id={level.fields.year}
-                  type="number"
-                  value={formData[level.fields.year]}
-                  onChange={(e) => handleChange(level.fields.year, e.target.value)}
-                  placeholder="Enter year"
-                  min="1990"
-                  max="2030"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor={level.fields.percentage} className="text-lg font-semibold">Percentage</Label>
-                <Input
-                  id={level.fields.percentage}
-                  type="number"
-                  value={formData[level.fields.percentage]}
-                  onChange={(e) => handleChange(level.fields.percentage, e.target.value)}
-                  placeholder="Enter percentage"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor={level.fields.institute} className="text-lg font-semibold">Institute/School</Label>
-                <Input
-                  id={level.fields.institute}
-                  value={formData[level.fields.institute]}
-                  onChange={(e) => handleChange(level.fields.institute, e.target.value)}
-                  placeholder="Enter institute name"
-                />
-              </div>
-            </div>
-            
-            <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-              <Label className="text-sm font-semibold text-gray-700">Attach Documents (Result Cards/Certificates)</Label>
-              <Button variant="outline" className="mt-2 w-full" type="button">
-                <Upload className="w-4 h-4 mr-2" />
-                Upload {level.title} Documents
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-
-      <Card className="bg-yellow-50 border-yellow-200">
-        <CardContent className="p-4">
-          <div className="flex items-center gap-2 text-yellow-800">
-            <span className="font-semibold">Note:</span>
-            <span>Please ensure all marks and percentages are accurate. Attach clear copies of all result cards and certificates.</span>
+    <div className="container-fluid">
+      <div className="row g-4">
+        <div className="col-12">
+          <div className="text-center p-4 bg-primary bg-opacity-10 rounded">
+            <h3 className="fs-4 fw-bold text-primary">Educational Background Record</h3>
+            <p className="text-primary mt-2 mb-0">Please fill in your educational history with accurate information</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {educationLevels.map((level, index) => (
+          <div key={index} className="col-12">
+            <div className="card border-0 shadow-sm border-start border-primary border-4">
+              <div className="card-header bg-primary text-white">
+                <h5 className="card-title mb-0">{level.title}</h5>
+              </div>
+              <div className="card-body">
+                <div className="row g-4">
+                  <div className="col-12 col-md-6">
+                    <div className="mb-3">
+                      <label htmlFor={level.fields.marks} className="form-label fs-5 fw-bold">Total Marks</label>
+                      <input
+                        id={level.fields.marks}
+                        type="number"
+                        className="form-control"
+                        value={formData[level.fields.marks]}
+                        onChange={(e) => handleChange(level.fields.marks, e.target.value)}
+                        placeholder="Enter total marks"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="col-12 col-md-6">
+                    <div className="mb-3">
+                      <label htmlFor={level.fields.year} className="form-label fs-5 fw-bold">Year</label>
+                      <input
+                        id={level.fields.year}
+                        type="number"
+                        className="form-control"
+                        value={formData[level.fields.year]}
+                        onChange={(e) => handleChange(level.fields.year, e.target.value)}
+                        placeholder="Enter year"
+                        min="1990"
+                        max="2030"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="col-12 col-md-6">
+                    <div className="mb-3">
+                      <label htmlFor={level.fields.percentage} className="form-label fs-5 fw-bold">Percentage</label>
+                      <input
+                        id={level.fields.percentage}
+                        type="number"
+                        className="form-control"
+                        value={formData[level.fields.percentage]}
+                        onChange={(e) => handleChange(level.fields.percentage, e.target.value)}
+                        placeholder="Enter percentage"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="col-12 col-md-6">
+                    <div className="mb-3">
+                      <label htmlFor={level.fields.institute} className="form-label fs-5 fw-bold">Institute/School</label>
+                      <input
+                        id={level.fields.institute}
+                        type="text"
+                        className="form-control"
+                        value={formData[level.fields.institute]}
+                        onChange={(e) => handleChange(level.fields.institute, e.target.value)}
+                        placeholder="Enter institute name"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-4 p-3 bg-light rounded">
+                  <label className="form-label fw-bold text-muted">Attach Documents (Result Cards/Certificates)</label>
+                  <button className="btn btn-outline-secondary w-100 mt-2" type="button">
+                    <Upload className="me-2" size={16} />
+                    Upload {level.title} Documents
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="col-12">
+          <div className="card bg-warning bg-opacity-10 border-warning">
+            <div className="card-body">
+              <div className="d-flex align-items-center text-warning-emphasis">
+                <span className="fw-bold me-2">Note:</span>
+                <span>Please ensure all marks and percentages are accurate. Attach clear copies of all result cards and certificates.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

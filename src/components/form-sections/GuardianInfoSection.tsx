@@ -1,101 +1,117 @@
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
 const GuardianInfoSection = ({ formData, setFormData }) => {
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-2 p-4 bg-blue-50 rounded-lg">
-        <Checkbox
-          id="fatherAlive"
-          checked={formData.fatherAlive}
-          onCheckedChange={(checked) => handleChange('fatherAlive', checked)}
-        />
-        <Label htmlFor="fatherAlive" className="text-lg font-semibold">
-          Is your father alive?
-        </Label>
-      </div>
-
-      {!formData.fatherAlive && (
-        <div className="space-y-6 p-4 bg-yellow-50 rounded-lg">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Guardian Information</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="guardianName" className="text-lg font-semibold">Guardian Name *</Label>
-              <Input
-                id="guardianName"
-                value={formData.guardianName}
-                onChange={(e) => handleChange('guardianName', e.target.value)}
-                placeholder="Enter guardian's full name"
-                required
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="relationship" className="text-lg font-semibold">Relationship *</Label>
-              <Select value={formData.relationship} onValueChange={(value) => handleChange('relationship', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select relationship" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mother">Mother</SelectItem>
-                  <SelectItem value="uncle">Uncle</SelectItem>
-                  <SelectItem value="aunt">Aunt</SelectItem>
-                  <SelectItem value="grandfather">Grandfather</SelectItem>
-                  <SelectItem value="grandmother">Grandmother</SelectItem>
-                  <SelectItem value="brother">Brother</SelectItem>
-                  <SelectItem value="sister">Sister</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="guardianEmail" className="text-lg font-semibold">Guardian Email</Label>
-              <Input
-                id="guardianEmail"
-                type="email"
-                value={formData.guardianEmail}
-                onChange={(e) => handleChange('guardianEmail', e.target.value)}
-                placeholder="guardian@example.com"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="guardianPhone" className="text-lg font-semibold">Guardian Phone *</Label>
-              <Input
-                id="guardianPhone"
-                value={formData.guardianPhone}
-                onChange={(e) => handleChange('guardianPhone', e.target.value)}
-                placeholder="Enter phone number"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="guardianAddress" className="text-lg font-semibold">Guardian Address *</Label>
-            <Textarea
-              id="guardianAddress"
-              value={formData.guardianAddress}
-              onChange={(e) => handleChange('guardianAddress', e.target.value)}
-              placeholder="Enter complete address"
-              rows={3}
-              required
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12">
+          <div className="form-check p-4 bg-primary bg-opacity-10 rounded mb-4">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="fatherAlive"
+              checked={formData.fatherAlive}
+              onChange={(e) => handleChange('fatherAlive', e.target.checked)}
             />
+            <label className="form-check-label fs-5 fw-bold" htmlFor="fatherAlive">
+              Is your father alive?
+            </label>
           </div>
+
+          {!formData.fatherAlive && (
+            <div className="p-4 bg-warning bg-opacity-10 rounded">
+              <h3 className="fs-4 fw-bold text-dark mb-4">Guardian Information</h3>
+              
+              <div className="row g-4">
+                <div className="col-12 col-md-6">
+                  <div className="mb-3">
+                    <label htmlFor="guardianName" className="form-label fs-5 fw-bold">Guardian Name *</label>
+                    <input
+                      id="guardianName"
+                      type="text"
+                      className="form-control"
+                      value={formData.guardianName}
+                      onChange={(e) => handleChange('guardianName', e.target.value)}
+                      placeholder="Enter guardian's full name"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="col-12 col-md-6">
+                  <div className="mb-3">
+                    <label htmlFor="relationship" className="form-label fs-5 fw-bold">Relationship *</label>
+                    <select
+                      id="relationship"
+                      className="form-select"
+                      value={formData.relationship}
+                      onChange={(e) => handleChange('relationship', e.target.value)}
+                      required
+                    >
+                      <option value="">Select relationship</option>
+                      <option value="mother">Mother</option>
+                      <option value="uncle">Uncle</option>
+                      <option value="aunt">Aunt</option>
+                      <option value="grandfather">Grandfather</option>
+                      <option value="grandmother">Grandmother</option>
+                      <option value="brother">Brother</option>
+                      <option value="sister">Sister</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-12 col-md-6">
+                  <div className="mb-3">
+                    <label htmlFor="guardianEmail" className="form-label fs-5 fw-bold">Guardian Email</label>
+                    <input
+                      id="guardianEmail"
+                      type="email"
+                      className="form-control"
+                      value={formData.guardianEmail}
+                      onChange={(e) => handleChange('guardianEmail', e.target.value)}
+                      placeholder="guardian@example.com"
+                    />
+                  </div>
+                </div>
+                
+                <div className="col-12 col-md-6">
+                  <div className="mb-3">
+                    <label htmlFor="guardianPhone" className="form-label fs-5 fw-bold">Guardian Phone *</label>
+                    <input
+                      id="guardianPhone"
+                      type="text"
+                      className="form-control"
+                      value={formData.guardianPhone}
+                      onChange={(e) => handleChange('guardianPhone', e.target.value)}
+                      placeholder="Enter phone number"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="col-12">
+                  <div className="mb-3">
+                    <label htmlFor="guardianAddress" className="form-label fs-5 fw-bold">Guardian Address *</label>
+                    <textarea
+                      id="guardianAddress"
+                      className="form-control"
+                      value={formData.guardianAddress}
+                      onChange={(e) => handleChange('guardianAddress', e.target.value)}
+                      placeholder="Enter complete address"
+                      rows={3}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

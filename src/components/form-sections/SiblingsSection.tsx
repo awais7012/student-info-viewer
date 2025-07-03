@@ -1,10 +1,5 @@
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const SiblingsSection = ({ formData, setFormData }) => {
   const handleChange = (field, value) => {
@@ -45,7 +40,6 @@ const SiblingsSection = ({ formData, setFormData }) => {
     
     const currentSiblings = [...formData.siblings];
     if (total > currentSiblings.length) {
-      // Add new empty siblings
       const newSiblings = Array(total - currentSiblings.length).fill(null).map(() => ({
         name: '',
         age: '',
@@ -57,7 +51,6 @@ const SiblingsSection = ({ formData, setFormData }) => {
         siblings: [...currentSiblings, ...newSiblings]
       }));
     } else if (total < currentSiblings.length) {
-      // Remove excess siblings
       setFormData(prev => ({
         ...prev,
         siblings: currentSiblings.slice(0, total)
@@ -66,127 +59,149 @@ const SiblingsSection = ({ formData, setFormData }) => {
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Family Information - Siblings</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="totalSiblings" className="text-lg font-semibold">Total Number of Siblings *</Label>
-              <Select value={formData.totalSiblings.toString()} onValueChange={handleTotalSiblingsChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select number of siblings" />
-                </SelectTrigger>
-                <SelectContent>
+    <div className="container-fluid">
+      <div className="row g-4">
+        <div className="col-12">
+          <div className="card border-0 shadow-sm">
+            <div className="card-header bg-primary text-white">
+              <h5 className="card-title mb-0">Family Information - Siblings</h5>
+            </div>
+            <div className="card-body">
+              <div className="mb-3">
+                <label htmlFor="totalSiblings" className="form-label fs-5 fw-bold">Total Number of Siblings *</label>
+                <select
+                  id="totalSiblings"
+                  className="form-select"
+                  value={formData.totalSiblings.toString()}
+                  onChange={(e) => handleTotalSiblingsChange(e.target.value)}
+                >
+                  <option value="">Select number of siblings</option>
                   {[...Array(11)].map((_, i) => (
-                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                    <option key={i} value={i.toString()}>{i}</option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+              </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      {formData.totalSiblings > 0 && (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h3 className="text-xl font-semibold">Sibling Details</h3>
-            <Button
-              onClick={addSibling}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <Plus className="w-4 h-4" />
-              Add Sibling
-            </Button>
-          </div>
-
-          {formData.siblings.map((sibling, index) => (
-            <Card key={index} className="border-l-4 border-l-green-500">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-lg">Sibling {index + 1}</CardTitle>
-                <Button
-                  onClick={() => removeSibling(index)}
-                  variant="destructive"
-                  size="sm"
-                  className="flex items-center gap-2"
+        {formData.totalSiblings > 0 && (
+          <>
+            <div className="col-12">
+              <div className="d-flex justify-content-between align-items-center">
+                <h3 className="fs-4 fw-bold">Sibling Details</h3>
+                <button
+                  onClick={addSibling}
+                  className="btn btn-outline-primary d-flex align-items-center"
+                  type="button"
                 >
-                  <Trash2 className="w-4 h-4" />
-                  Remove
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor={`siblingName${index}`} className="text-lg font-semibold">Name *</Label>
-                    <Input
-                      id={`siblingName${index}`}
-                      value={sibling.name}
-                      onChange={(e) => handleSiblingChange(index, 'name', e.target.value)}
-                      placeholder="Enter sibling's name"
-                      required
-                    />
+                  <Plus className="me-2" size={16} />
+                  Add Sibling
+                </button>
+              </div>
+            </div>
+
+            {formData.siblings.map((sibling, index) => (
+              <div key={index} className="col-12">
+                <div className="card border-0 shadow-sm border-start border-success border-4">
+                  <div className="card-header d-flex justify-content-between align-items-center bg-success text-white">
+                    <h5 className="card-title mb-0">Sibling {index + 1}</h5>
+                    <button
+                      onClick={() => removeSibling(index)}
+                      className="btn btn-danger btn-sm d-flex align-items-center"
+                      type="button"
+                    >
+                      <Trash2 className="me-1" size={14} />
+                      Remove
+                    </button>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor={`siblingAge${index}`} className="text-lg font-semibold">Age *</Label>
-                    <Input
-                      id={`siblingAge${index}`}
-                      type="number"
-                      value={sibling.age}
-                      onChange={(e) => handleSiblingChange(index, 'age', e.target.value)}
-                      placeholder="Enter age"
-                      min="1"
-                      max="50"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor={`siblingInstitution${index}`} className="text-lg font-semibold">School/University *</Label>
-                    <Input
-                      id={`siblingInstitution${index}`}
-                      value={sibling.institution}
-                      onChange={(e) => handleSiblingChange(index, 'institution', e.target.value)}
-                      placeholder="Enter school/university name"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor={`siblingFee${index}`} className="text-lg font-semibold">Monthly Fee *</Label>
-                    <Input
-                      id={`siblingFee${index}`}
-                      type="number"
-                      value={sibling.monthlyFee}
-                      onChange={(e) => handleSiblingChange(index, 'monthlyFee', e.target.value)}
-                      placeholder="Enter monthly fee"
-                      min="0"
-                      required
-                    />
+                  <div className="card-body">
+                    <div className="row g-4">
+                      <div className="col-12 col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor={`siblingName${index}`} className="form-label fs-5 fw-bold">Name *</label>
+                          <input
+                            id={`siblingName${index}`}
+                            type="text"
+                            className="form-control"
+                            value={sibling.name}
+                            onChange={(e) => handleSiblingChange(index, 'name', e.target.value)}
+                            placeholder="Enter sibling's name"
+                            required
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="col-12 col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor={`siblingAge${index}`} className="form-label fs-5 fw-bold">Age *</label>
+                          <input
+                            id={`siblingAge${index}`}
+                            type="number"
+                            className="form-control"
+                            value={sibling.age}
+                            onChange={(e) => handleSiblingChange(index, 'age', e.target.value)}
+                            placeholder="Enter age"
+                            min="1"
+                            max="50"
+                            required
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="col-12 col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor={`siblingInstitution${index}`} className="form-label fs-5 fw-bold">School/University *</label>
+                          <input
+                            id={`siblingInstitution${index}`}
+                            type="text"
+                            className="form-control"
+                            value={sibling.institution}
+                            onChange={(e) => handleSiblingChange(index, 'institution', e.target.value)}
+                            placeholder="Enter school/university name"
+                            required
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="col-12 col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor={`siblingFee${index}`} className="form-label fs-5 fw-bold">Monthly Fee *</label>
+                          <input
+                            id={`siblingFee${index}`}
+                            type="number"
+                            className="form-control"
+                            value={sibling.monthlyFee}
+                            onChange={(e) => handleSiblingChange(index, 'monthlyFee', e.target.value)}
+                            placeholder="Enter monthly fee"
+                            min="0"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+              </div>
+            ))}
+          </>
+        )}
 
-      <Card className="bg-blue-50 border-blue-200">
-        <CardContent className="p-4">
-          <div className="text-blue-800">
-            <h4 className="font-semibold mb-2">Important Notes:</h4>
-            <ul className="list-disc list-inside space-y-1 text-sm">
-              <li>Include all siblings who are currently studying</li>
-              <li>Provide accurate fee information as this affects scholarship calculations</li>
-              <li>If any sibling is not studying, you can enter "Not Applicable" in the institution field</li>
-            </ul>
+        <div className="col-12">
+          <div className="card bg-info bg-opacity-10 border-info">
+            <div className="card-body">
+              <div className="text-info-emphasis">
+                <h6 className="fw-bold mb-2">Important Notes:</h6>
+                <ul className="mb-0 small">
+                  <li>Include all siblings who are currently studying</li>
+                  <li>Provide accurate fee information as this affects scholarship calculations</li>
+                  <li>If any sibling is not studying, you can enter "Not Applicable" in the institution field</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
