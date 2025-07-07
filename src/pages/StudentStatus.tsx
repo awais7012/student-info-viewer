@@ -1,76 +1,83 @@
 
 import { useState, useEffect } from "react";
-import { CheckCircle, XCircle, Clock, FileText, AlertCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { CheckCircle, Clock, XCircle, ArrowLeft, FileText, User, Phone, MapPin, GraduationCap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-interface ApplicationStatus {
+interface Application {
   id: string;
   status: 'pending' | 'approved' | 'rejected';
   submittedAt: string;
-  reviewedAt?: string;
-  comments?: string;
-  studentData: {
-    registration: string;
-    name: string;
-    department: string;
-    class: string;
-  };
+  studentData: any;
 }
 
 const StudentStatus = () => {
-  const [applicationStatus, setApplicationStatus] = useState<ApplicationStatus | null>(null);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [application, setApplication] = useState<Application | null>(null);
 
   useEffect(() => {
-    // Mock data - in real app, this would come from backend based on student ID
-    setTimeout(() => {
-      const mockStatus: ApplicationStatus = {
-        id: "APP001",
-        status: "approved", // Change this to test different states: 'pending', 'approved', 'rejected'
-        submittedAt: "2024-01-15T10:30:00Z",
-        reviewedAt: "2024-01-16T14:20:00Z",
-        comments: "Application meets all requirements. Scholarship approved.",
-        studentData: {
-          registration: "STU001",
-          name: "John Doe",
-          department: "Computer Science",
-          class: "BSc CS"
-        }
-      };
-      setApplicationStatus(mockStatus);
-      setLoading(false);
-    }, 1000);
+    // Get current application from localStorage
+    const currentApp = localStorage.getItem('currentApplication');
+    if (currentApp) {
+      const parsedApp = JSON.parse(currentApp);
+      
+      // Check if status has been updated in the applications list
+      const allApplications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+      const updatedApp = allApplications.find((app: Application) => app.id === parsedApp.id);
+      
+      if (updatedApp) {
+        setApplication(updatedApp);
+        localStorage.setItem('currentApplication', JSON.stringify(updatedApp));
+      } else {
+        setApplication(parsedApp);
+      }
+    }
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-vh-100 bg-gradient-custom d-flex align-items-center justify-content-center">
-        <div className="text-center text-white">
-          <div className="spinner-border text-light mb-3" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <p>Checking your application status...</p>
-        </div>
-      </div>
-    );
-  }
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'pending': return 'warning';
+      case 'approved': return 'success';
+      case 'rejected': return 'danger';
+      default: return 'secondary';
+    }
+  };
 
-  if (!applicationStatus) {
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'pending': return <Clock size={24} />;
+      case 'approved': return <CheckCircle size={24} />;
+      case 'rejected': return <XCircle size={24} />;
+      default: return <FileText size={24} />;
+    }
+  };
+
+  const getStatusMessage = (status: string) => {
+    switch (status) {
+      case 'pending': return 'Your application is under review. We will notify you once a decision is made.';
+      case 'approved': return 'Congratulations! Your application has been approved.';
+      case 'rejected': return 'Unfortunately, your application was not approved at this time.';
+      default: return 'Application status unknown.';
+    }
+  };
+
+  if (!application) {
     return (
-      <div className="min-vh-100 bg-gradient-custom py-4">
+      <div className="min-vh-100 bg-light py-5">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-md-8">
-              <div className="custom-card">
-                <div className="custom-card-body text-center p-5">
-                  <AlertCircle size={64} className="text-warning mb-4" />
-                  <h3 className="text-dark mb-3">No Application Found</h3>
-                  <p className="text-muted mb-4">
-                    You haven't submitted any application yet. Click below to start your application process.
-                  </p>
-                  <Link to="/" className="btn btn-custom-primary">
-                    Start New Application
-                  </Link>
+            <div className="col-md-8 text-center">
+              <button 
+                onClick={() => navigate('/')}
+                className="btn btn-outline-primary mb-4"
+              >
+                <ArrowLeft className="me-2" size={16} />
+                Submit Application
+              </button>
+              <div className="card shadow">
+                <div className="card-body p-5">
+                  <FileText size={64} className="text-muted mb-4" />
+                  <h3 className="text-muted">No Application Found</h3>
+                  <p className="text-muted">Please submit your application first to view the status.</p>
                 </div>
               </div>
             </div>
@@ -80,141 +87,121 @@ const StudentStatus = () => {
     );
   }
 
-  const getStatusConfig = (status: string) => {
-    switch (status) {
-      case 'pending':
-        return {
-          icon: <Clock size={48} />,
-          color: 'text-warning',
-          bgColor: 'bg-warning-light',
-          title: 'Application Under Review',
-          message: 'Your application is currently being reviewed by our admissions team. We will notify you once a decision has been made.',
-          actionColor: 'warning'
-        };
-      case 'approved':
-        return {
-          icon: <CheckCircle size={48} />,
-          color: 'text-success',
-          bgColor: 'bg-success-light',
-          title: 'Application Approved!',
-          message: 'Congratulations! Your scholarship application has been approved. Please check your email for further instructions.',
-          actionColor: 'success'
-        };
-      case 'rejected':
-        return {
-          icon: <XCircle size={48} />,
-          color: 'text-danger',
-          bgColor: 'bg-danger-light',
-          title: 'Application Not Approved',
-          message: 'Unfortunately, your application was not approved at this time. You may reapply in the next cycle.',
-          actionColor: 'danger'
-        };
-      default:
-        return {
-          icon: <FileText size={48} />,
-          color: 'text-secondary',
-          bgColor: 'bg-secondary-light',
-          title: 'Application Status',
-          message: 'Your application status is being processed.',
-          actionColor: 'secondary'
-        };
-    }
-  };
-
-  const statusConfig = getStatusConfig(applicationStatus.status);
-
   return (
-    <div className="min-vh-100 bg-gradient-custom py-4">
+    <div className="min-vh-100 bg-light py-4">
       <div className="container">
-        <div className="text-center mb-4">
-          <h1 className="display-4 fw-bold text-white mb-3">Application Status</h1>
-          <p className="lead text-white">Track your scholarship application progress</p>
-        </div>
-
         <div className="row justify-content-center">
           <div className="col-lg-8">
-            {/* Main Status Card */}
-            <div className="custom-card mb-4">
-              <div className="custom-card-body text-center p-5">
-                <div className={`${statusConfig.bgColor} rounded-circle d-inline-flex align-items-center justify-content-center mb-4`}
-                     style={{ width: '100px', height: '100px' }}>
-                  <div className={statusConfig.color}>
-                    {statusConfig.icon}
-                  </div>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h1 className="h3 mb-0">Application Status</h1>
+                <p className="text-muted">Track your scholarship application progress</p>
+              </div>
+              <button 
+                onClick={() => navigate('/')}
+                className="btn btn-outline-primary"
+              >
+                <ArrowLeft className="me-2" size={16} />
+                Back to Home
+              </button>
+            </div>
+
+            {/* Status Card */}
+            <div className="card border-0 shadow-sm mb-4">
+              <div className="card-body text-center p-4">
+                <div className={`text-${getStatusColor(application.status)} mb-3`}>
+                  {getStatusIcon(application.status)}
                 </div>
-                
-                <h2 className="text-dark mb-3">{statusConfig.title}</h2>
-                <p className="text-muted mb-4 fs-5">{statusConfig.message}</p>
-                
-                <div className={`alert alert-${statusConfig.actionColor} d-flex align-items-center`}>
-                  <div className={statusConfig.color + ' me-3'}>
-                    {statusConfig.icon}
-                  </div>
-                  <div className="text-start">
-                    <strong>Current Status:</strong> {applicationStatus.status.charAt(0).toUpperCase() + applicationStatus.status.slice(1)}
-                    <br />
-                    <small>Application ID: {applicationStatus.id}</small>
-                  </div>
-                </div>
+                <h3 className={`text-${getStatusColor(application.status)} mb-3`}>
+                  Application {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
+                </h3>
+                <p className="text-muted mb-0">{getStatusMessage(application.status)}</p>
               </div>
             </div>
 
             {/* Application Details */}
-            <div className="custom-card mb-4">
-              <div className="custom-card-header bg-primary">
-                <h4 className="mb-0">Application Details</h4>
+            <div className="card border-0 shadow-sm">
+              <div className="card-header bg-white border-bottom">
+                <h5 className="mb-0">Application Details</h5>
               </div>
-              <div className="custom-card-body">
+              <div className="card-body">
                 <div className="row">
                   <div className="col-md-6">
-                    <h6 className="text-primary mb-3">Student Information</h6>
-                    <div className="mb-2">
-                      <strong>Name:</strong> {applicationStatus.studentData.name}
+                    <div className="d-flex align-items-center mb-3">
+                      <User className="text-primary me-2" size={20} />
+                      <div>
+                        <div className="fw-bold">{application.studentData.name}</div>
+                        <small className="text-muted">Student Name</small>
+                      </div>
                     </div>
-                    <div className="mb-2">
-                      <strong>Registration:</strong> {applicationStatus.studentData.registration}
+                    
+                    <div className="d-flex align-items-center mb-3">
+                      <FileText className="text-primary me-2" size={20} />
+                      <div>
+                        <div className="fw-bold">{application.studentData.registration}</div>
+                        <small className="text-muted">Registration Number</small>
+                      </div>
                     </div>
-                    <div className="mb-2">
-                      <strong>Department:</strong> {applicationStatus.studentData.department}
-                    </div>
-                    <div className="mb-2">
-                      <strong>Class:</strong> {applicationStatus.studentData.class}
+
+                    <div className="d-flex align-items-center mb-3">
+                      <GraduationCap className="text-primary me-2" size={20} />
+                      <div>
+                        <div className="fw-bold">{application.studentData.department}</div>
+                        <small className="text-muted">{application.studentData.class}</small>
+                      </div>
                     </div>
                   </div>
+
                   <div className="col-md-6">
-                    <h6 className="text-primary mb-3">Timeline</h6>
-                    <div className="mb-2">
-                      <strong>Submitted:</strong> {new Date(applicationStatus.submittedAt).toLocaleString()}
-                    </div>
-                    {applicationStatus.reviewedAt && (
-                      <div className="mb-2">
-                        <strong>Reviewed:</strong> {new Date(applicationStatus.reviewedAt).toLocaleString()}
+                    <div className="d-flex align-items-center mb-3">
+                      <Phone className="text-primary me-2" size={20} />
+                      <div>
+                        <div className="fw-bold">{application.studentData.studentContact}</div>
+                        <small className="text-muted">Contact Number</small>
                       </div>
-                    )}
+                    </div>
+
+                    <div className="d-flex align-items-start mb-3">
+                      <MapPin className="text-primary me-2 mt-1" size={20} />
+                      <div>
+                        <div className="fw-bold">{application.studentData.address}</div>
+                        <small className="text-muted">Address</small>
+                      </div>
+                    </div>
+
+                    <div className="d-flex align-items-center mb-3">
+                      <Clock className="text-primary me-2" size={20} />
+                      <div>
+                        <div className="fw-bold">{new Date(application.submittedAt).toLocaleDateString()}</div>
+                        <small className="text-muted">Submitted On</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                
-                {applicationStatus.comments && (
-                  <div className="mt-4">
-                    <h6 className="text-primary mb-3">Comments</h6>
-                    <div className="bg-light p-3 rounded">
-                      <p className="mb-0">{applicationStatus.comments}</p>
+
+                <hr />
+
+                <div className="row">
+                  <div className="col-12">
+                    <h6 className="text-primary mb-3">Additional Information</h6>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <p><strong>Father's Name:</strong> {application.studentData.fatherName}</p>
+                        <p><strong>Father's Contact:</strong> {application.studentData.fatherContact}</p>
+                        <p><strong>Session:</strong> {application.studentData.session}</p>
+                      </div>
+                      <div className="col-md-6">
+                        <p><strong>Application ID:</strong> {application.id}</p>
+                        <p><strong>Current Status:</strong> 
+                          <span className={`badge bg-${getStatusColor(application.status)} ms-2`}>
+                            {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
+                          </span>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="text-center">
-              {applicationStatus.status === 'rejected' && (
-                <Link to="/" className="btn btn-custom-primary me-3">
-                  Apply Again
-                </Link>
-              )}
-              <Link to="/" className="btn btn-outline-secondary">
-                Back to Home
-              </Link>
             </div>
           </div>
         </div>

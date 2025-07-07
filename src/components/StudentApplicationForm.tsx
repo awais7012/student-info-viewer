@@ -109,7 +109,22 @@ const StudentApplicationForm = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // In real app, this would submit to backend
+      // Create application object
+      const application = {
+        id: `APP${Date.now()}`,
+        status: 'pending',
+        submittedAt: new Date().toISOString(),
+        studentData: formData
+      };
+      
+      // Save to localStorage
+      const existingApplications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+      const updatedApplications = [...existingApplications, application];
+      localStorage.setItem('studentApplications', JSON.stringify(updatedApplications));
+      
+      // Also save current application for status page
+      localStorage.setItem('currentApplication', JSON.stringify(application));
+      
       console.log("Form Data:", formData);
       
       toast.success("Application submitted successfully!");
