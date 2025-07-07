@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import PersonalInfoSection from "./form-sections/PersonalInfoSection";
 import GuardianInfoSection from "./form-sections/GuardianInfoSection";
 import FinancialInfoSection from "./form-sections/FinancialInfoSection";
@@ -10,7 +10,10 @@ import SiblingsSection from "./form-sections/SiblingsSection";
 import { toast } from "sonner";
 
 const StudentApplicationForm = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [formData, setFormData] = useState({
     // Personal Info
     registration: "STU001",
@@ -99,9 +102,27 @@ const StudentApplicationForm = () => {
     }
   };
 
-  const handleSubmit = () => {
-    toast.success("Application submitted successfully!");
-    console.log("Form Data:", formData);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // In real app, this would submit to backend
+      console.log("Form Data:", formData);
+      
+      toast.success("Application submitted successfully!");
+      
+      // Redirect to status page after successful submission
+      setTimeout(() => {
+        navigate('/status');
+      }, 1000);
+      
+    } catch (error) {
+      toast.error("Failed to submit application. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   const CurrentSection = sections[currentStep].component;
@@ -137,7 +158,7 @@ const StudentApplicationForm = () => {
               <div className="d-flex justify-content-between mt-4">
                 <button
                   onClick={handlePrevious}
-                  disabled={currentStep === 0}
+                  disabled={currentStep === 0 || isSubmitting}
                   className="btn btn-outline-secondary d-flex align-items-center"
                 >
                   <ChevronLeft className="me-2" size={16} />
@@ -147,13 +168,24 @@ const StudentApplicationForm = () => {
                 {currentStep === sections.length - 1 ? (
                   <button
                     onClick={handleSubmit}
+                    disabled={isSubmitting}
                     className="btn btn-success d-flex align-items-center"
                   >
-                    Submit Application
+                    {isSubmitting ? (
+                      <>
+                        <div className="spinner-border spinner-border-sm me-2" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        Submitting...
+                      </>
+                    ) : (
+                      'Submit Application'
+                    )}
                   </button>
                 ) : (
                   <button
                     onClick={handleNext}
+                    disabled={isSubmitting}
                     className="btn btn-custom-primary d-flex align-items-center"
                   >
                     Next
