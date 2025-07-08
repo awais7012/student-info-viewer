@@ -1,3 +1,4 @@
+
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -7,6 +8,8 @@
 html, body {
   height: 100%;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Form Container Styles */
@@ -16,6 +19,8 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .form-wrapper {
@@ -25,7 +30,7 @@ html, body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 10px;
   overflow: hidden;
 }
 
@@ -38,13 +43,31 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
+}
+
+/* Application Header */
+.app-header {
+  background: linear-gradient(135deg, #000059 0%, #000045 100%);
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  flex-shrink: 0;
+  border-radius: 15px 15px 0 0;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
 }
 
 /* Fixed Header */
 .form-header {
   background: #000059;
   color: white;
-  padding: 20px 30px;
+  padding: 15px 30px;
   text-align: center;
   flex-shrink: 0;
   position: sticky;
@@ -53,20 +76,20 @@ html, body {
 }
 
 .form-title {
-  margin: 0 0 15px 0;
-  font-size: 1.75rem;
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
 .progress-container {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .progress-bar {
   height: 6px;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   overflow: hidden;
 }
 
@@ -86,16 +109,18 @@ html, body {
 /* Scrollable Content */
 .form-content {
   flex: 1;
-  padding: 30px;
+  padding: 20px 30px;
   overflow-y: auto;
   overflow-x: hidden;
+  min-height: 0;
+  max-height: calc(100vh - 200px);
 }
 
 /* Fixed Navigation */
 .form-navigation {
   flex-shrink: 0;
   background: white;
-  padding: 20px 30px;
+  padding: 15px 30px;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
@@ -103,6 +128,8 @@ html, body {
   position: sticky;
   bottom: 0;
   z-index: 10;
+  border-radius: 0 0 15px 15px;
+  min-height: 70px;
 }
 
 .nav-btn {
@@ -116,6 +143,7 @@ html, body {
   cursor: pointer;
   transition: all 0.2s;
   font-size: 0.95rem;
+  min-height: 45px;
 }
 
 .nav-btn:disabled {

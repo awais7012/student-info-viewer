@@ -293,6 +293,11 @@ const StudentApplicationForm = () => {
   return (
     <div className="form-wrapper">
       <div className="form-card">
+        {/* Application Header */}
+        <div className="app-header">
+          <h1 className="app-title">Student Scholarship Application Form</h1>
+        </div>
+
         <div className="form-header">
           <h2 className="form-title">{sections[currentStep].title}</h2>
           <div className="progress-container">
