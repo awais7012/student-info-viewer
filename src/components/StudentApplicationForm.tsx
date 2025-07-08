@@ -109,7 +109,6 @@ const StudentApplicationForm = () => {
     { title: "Educational Background", component: EducationSection },
     { title: "Scholarship History", component: ScholarshipSection },
     { title: "Family Information", component: SiblingsSection },
-    { title: "Document Upload", component: DocumentUploadSection },
   ];
 
   const progress = ((currentStep + 1) / sections.length) * 100;
@@ -161,6 +160,30 @@ const StudentApplicationForm = () => {
       toast.error("Failed to submit application. Please try again.");
       setIsSubmitting(false);
     }
+  };
+
+  const handleFileUpload = (docName) => {
+    const updatedDocuments = [...(formData.documents || [])];
+    const existingDocIndex = updatedDocuments.findIndex(doc => doc.name === docName);
+    
+    if (existingDocIndex >= 0) {
+      updatedDocuments[existingDocIndex] = {
+        name: docName,
+        type: "pdf",
+        size: "1.2 MB",
+        uploaded: true
+      };
+    } else {
+      updatedDocuments.push({
+        name: docName,
+        type: "pdf", 
+        size: "1.2 MB",
+        uploaded: true
+      });
+    }
+    
+    setFormData({ ...formData, documents: updatedDocuments });
+    toast.success(`${docName} uploaded successfully!`);
   };
 
   // Add comprehensive sample applications
@@ -249,30 +272,35 @@ const StudentApplicationForm = () => {
   const CurrentSection = sections[currentStep].component;
 
   return (
-    <div className="form-container">
-      <div className="form-wrapper">
-        <div className="form-card">
-          <div className="form-header">
-            <h2 className="form-title">{sections[currentStep].title}</h2>
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill"
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-              <p className="progress-text">
-                Step {currentStep + 1} of {sections.length}
-              </p>
+    <div className="form-wrapper">
+      <div className="form-card">
+        <div className="form-header">
+          <h2 className="form-title">{sections[currentStep].title}</h2>
+          <div className="progress-container">
+            <div className="progress-bar">
+              <div 
+                className="progress-fill"
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
+            <p className="progress-text">
+              Step {currentStep + 1} of {sections.length}
+            </p>
           </div>
+        </div>
+        
+        <div className="form-content">
+          <CurrentSection 
+            formData={formData} 
+            setFormData={setFormData}
+          />
           
-          <div className="form-content">
-            <CurrentSection 
-              formData={formData} 
-              setFormData={setFormData}
-            />
-          </div>
+          {/* Document Upload Section for each step */}
+          <DocumentUploadSection 
+            sectionName={sections[currentStep].title}
+            formData={formData}
+            onFileUpload={handleFileUpload}
+          />
         </div>
         
         {/* Fixed Navigation */}
@@ -370,61 +398,50 @@ const StudentApplicationForm = () => {
 };
 
 // Document Upload Section Component
-const DocumentUploadSection = ({ formData, setFormData }) => {
-  const handleFileUpload = (docType) => {
-    toast.success(`${docType} uploaded successfully!`);
+const DocumentUploadSection = ({ sectionName, formData, onFileUpload }) => {
+  const getRequiredDocsForSection = (section) => {
+    switch (section) {
+      case "Personal Information":
+        return ["CNIC Copy", "Birth Certificate"];
+      case "Guardian Information":
+        return ["Guardian CNIC", "Relationship Certificate"];
+      case "Financial Information":
+        return ["Income Certificate", "Utility Bill"];
+      case "Educational Background":
+        return ["Academic Transcript", "Degree Certificate"];
+      case "Scholarship History":
+        return ["Previous Scholarship Certificate"];
+      case "Family Information":
+        return ["Family Registration Certificate"];
+      default:
+        return [];
+    }
   };
 
-  const requiredDocs = [
-    'CNIC Copy',
-    'Income Certificate', 
-    'Academic Transcript',
-    'Utility Bill',
-    'Birth Certificate'
-  ];
+  const requiredDocs = getRequiredDocsForSection(sectionName);
+
+  if (requiredDocs.length === 0) return null;
 
   return (
     <div className="document-section">
-      <div className="alert-info">
-        <FileText size={20} />
-        Please upload the following required documents (PDF format only, max 5MB each)
-      </div>
-      
-      <div className="documents-grid">
+      <h4>Required Documents for {sectionName}</h4>
+      <div className="document-upload-grid">
         {requiredDocs.map((doc, index) => {
           const isUploaded = formData.documents?.some(d => d.name === doc);
           return (
-            <div key={index} className={`document-card ${isUploaded ? 'uploaded' : 'pending'}`}>
-              <div className="document-card-body">
-                <Upload className={`upload-icon ${isUploaded ? 'success' : 'warning'}`} size={32} />
-                <h6 className="document-title">{doc}</h6>
-                {isUploaded ? (
-                  <div className="upload-status">
-                    <span className="status-badge success">✓ Uploaded</span>
-                    <p className="file-size">
-                      {formData.documents?.find(d => d.name === doc)?.size}
-                    </p>
-                  </div>
-                ) : (
-                  <button 
-                    className="upload-btn"
-                    onClick={() => handleFileUpload(doc)}
-                  >
-                    <Upload size={16} />
-                    Upload File
-                  </button>
-                )}
-              </div>
+            <div 
+              key={index} 
+              className={`document-upload-item ${isUploaded ? 'uploaded' : ''}`}
+              onClick={() => !isUploaded && onFileUpload(doc)}
+            >
+              <Upload className={`upload-icon ${isUploaded ? 'success' : ''}`} size={24} />
+              <p className="upload-text">{doc}</p>
+              <p className="upload-subtext">
+                {isUploaded ? '✓ Uploaded' : 'Click to upload'}
+              </p>
             </div>
           );
         })}
-      </div>
-      
-      <div className="upload-summary">
-        <h6 className="summary-title">Upload Summary</h6>
-        <p className="summary-text">
-          <strong>{formData.documents?.length || 0}</strong> of {requiredDocs.length} documents uploaded
-        </p>
       </div>
     </div>
   );
