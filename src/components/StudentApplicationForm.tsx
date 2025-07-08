@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ChevronRight, ChevronLeft, Upload, FileText, CheckCircle, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +14,11 @@ const StudentApplicationForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [verificationChecks, setVerificationChecks] = useState({
+    documentsVerified: false,
+    informationAccurate: false,
+    termsAccepted: false
+  });
   
   // Enhanced sample data with complete information
   const [formData, setFormData] = useState({
@@ -128,7 +132,22 @@ const StudentApplicationForm = () => {
 
   const handleSubmitClick = () => {
     setShowConfirmation(true);
+    // Reset verification checks
+    setVerificationChecks({
+      documentsVerified: false,
+      informationAccurate: false,
+      termsAccepted: false
+    });
   };
+
+  const handleVerificationChange = (field) => {
+    setVerificationChecks(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+  const canSubmit = Object.values(verificationChecks).every(check => check === true);
 
   const handleConfirmSubmit = async () => {
     setShowConfirmation(false);
@@ -342,7 +361,7 @@ const StudentApplicationForm = () => {
         </div>
       </div>
 
-      {/* Confirmation Modal */}
+      {/* Enhanced Confirmation Modal */}
       {showConfirmation && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -358,21 +377,59 @@ const StudentApplicationForm = () => {
             
             <div className="modal-body">
               <p className="confirmation-text">
-                Please verify your uploaded documents before submitting:
+                Please verify your uploaded documents and confirm the following:
               </p>
               
               <div className="documents-list">
                 {formData.documents?.map((doc, index) => (
                   <div key={index} className="document-item">
-                    <CheckCircle className="doc-icon" size={16} />
-                    <span className="doc-name">{doc.name}</span>
-                    <span className="doc-size">({doc.size})</span>
+                    <CheckCircle className="doc-icon" size={20} />
+                    <div className="doc-details">
+                      <div className="doc-name">{doc.name}</div>
+                      <div className="doc-size">{doc.size}</div>
+                    </div>
                   </div>
                 ))}
               </div>
               
+              {/* User Verification Checkboxes */}
+              <div className="verification-checklist">
+                <label className="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={verificationChecks.documentsVerified}
+                    onChange={() => handleVerificationChange('documentsVerified')}
+                  />
+                  <span className="checkbox-label">
+                    I have verified that all required documents are uploaded and correct
+                  </span>
+                </label>
+                
+                <label className="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={verificationChecks.informationAccurate}
+                    onChange={() => handleVerificationChange('informationAccurate')}
+                  />
+                  <span className="checkbox-label">
+                    I confirm that all the information provided is accurate and truthful
+                  </span>
+                </label>
+                
+                <label className="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={verificationChecks.termsAccepted}
+                    onChange={() => handleVerificationChange('termsAccepted')}
+                  />
+                  <span className="checkbox-label">
+                    I accept the terms and conditions and understand that false information may result in application rejection
+                  </span>
+                </label>
+              </div>
+              
               <p className="warning-text">
-                Once submitted, you cannot modify your application. Are you sure you want to proceed?
+                Once submitted, you cannot modify your application. Please ensure all information is correct.
               </p>
             </div>
             
@@ -385,6 +442,7 @@ const StudentApplicationForm = () => {
               </button>
               <button 
                 onClick={handleConfirmSubmit}
+                disabled={!canSubmit}
                 className="modal-btn modal-btn-primary"
               >
                 Confirm & Submit
