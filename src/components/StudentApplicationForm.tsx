@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { ChevronRight, ChevronLeft, Upload, FileText } from "lucide-react";
+import { ChevronRight, ChevronLeft, Upload, FileText, CheckCircle, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PersonalInfoSection from "./form-sections/PersonalInfoSection";
 import GuardianInfoSection from "./form-sections/GuardianInfoSection";
@@ -13,6 +14,7 @@ const StudentApplicationForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   
   // Enhanced sample data with complete information
   const [formData, setFormData] = useState({
@@ -125,7 +127,12 @@ const StudentApplicationForm = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmitClick = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmSubmit = async () => {
+    setShowConfirmation(false);
     setIsSubmitting(true);
     
     try {
@@ -242,92 +249,122 @@ const StudentApplicationForm = () => {
   const CurrentSection = sections[currentStep].component;
 
   return (
-    <div className="min-vh-100" style={{ background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)' }}>
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-12 col-lg-8">
-            <div className="card shadow-lg border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-              <div 
-                className="card-header text-white text-center py-4"
-                style={{ background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)' }}
+    <div className="form-container">
+      <div className="form-wrapper">
+        <div className="form-card">
+          <div className="form-header">
+            <h2 className="form-title">{sections[currentStep].title}</h2>
+            <div className="progress-container">
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <p className="progress-text">
+                Step {currentStep + 1} of {sections.length}
+              </p>
+            </div>
+          </div>
+          
+          <div className="form-content">
+            <CurrentSection 
+              formData={formData} 
+              setFormData={setFormData}
+            />
+          </div>
+        </div>
+        
+        {/* Fixed Navigation */}
+        <div className="form-navigation">
+          <button
+            onClick={handlePrevious}
+            disabled={currentStep === 0 || isSubmitting}
+            className="nav-btn nav-btn-secondary"
+          >
+            <ChevronLeft size={16} />
+            Previous
+          </button>
+          
+          {currentStep === sections.length - 1 ? (
+            <button
+              onClick={handleSubmitClick}
+              disabled={isSubmitting}
+              className="nav-btn nav-btn-primary"
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="spinner"></div>
+                  Submitting...
+                </>
+              ) : (
+                'Submit Application'
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              disabled={isSubmitting}
+              className="nav-btn nav-btn-primary"
+            >
+              Next
+              <ChevronRight size={16} />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3>Confirm Application Submission</h3>
+              <button 
+                onClick={() => setShowConfirmation(false)}
+                className="modal-close"
               >
-                <h2 className="mb-3 fw-bold">{sections[currentStep].title}</h2>
-                <div className="mb-3">
-                  <div 
-                    className="bg-white bg-opacity-25 rounded-pill"
-                    style={{ height: '8px', position: 'relative' }}
-                  >
-                    <div 
-                      className="bg-white rounded-pill h-100 transition-all"
-                      style={{ width: `${progress}%` }}
-                    ></div>
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <p className="confirmation-text">
+                Please verify your uploaded documents before submitting:
+              </p>
+              
+              <div className="documents-list">
+                {formData.documents?.map((doc, index) => (
+                  <div key={index} className="document-item">
+                    <CheckCircle className="doc-icon" size={16} />
+                    <span className="doc-name">{doc.name}</span>
+                    <span className="doc-size">({doc.size})</span>
                   </div>
-                  <p className="mt-3 mb-0 text-white-50">
-                    Step {currentStep + 1} of {sections.length}
-                  </p>
-                </div>
+                ))}
               </div>
               
-              <div className="card-body p-5">
-                <CurrentSection 
-                  formData={formData} 
-                  setFormData={setFormData}
-                />
-                
-                <div className="d-flex justify-content-between mt-5">
-                  <button
-                    onClick={handlePrevious}
-                    disabled={currentStep === 0 || isSubmitting}
-                    className="btn btn-outline-secondary d-flex align-items-center px-4 py-2"
-                    style={{ borderRadius: '25px' }}
-                  >
-                    <ChevronLeft className="me-2" size={16} />
-                    Previous
-                  </button>
-                  
-                  {currentStep === sections.length - 1 ? (
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="btn text-white d-flex align-items-center px-4 py-2"
-                      style={{ 
-                        background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-                        borderRadius: '25px',
-                        border: 'none'
-                      }}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="spinner-border spinner-border-sm me-2" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Application'
-                      )}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleNext}
-                      disabled={isSubmitting}
-                      className="btn text-white d-flex align-items-center px-4 py-2"
-                      style={{ 
-                        background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
-                        borderRadius: '25px',
-                        border: 'none'
-                      }}
-                    >
-                      Next
-                      <ChevronRight className="ms-2" size={16} />
-                    </button>
-                  )}
-                </div>
-              </div>
+              <p className="warning-text">
+                Once submitted, you cannot modify your application. Are you sure you want to proceed?
+              </p>
+            </div>
+            
+            <div className="modal-footer">
+              <button 
+                onClick={() => setShowConfirmation(false)}
+                className="modal-btn modal-btn-secondary"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleConfirmSubmit}
+                className="modal-btn modal-btn-primary"
+              >
+                Confirm & Submit
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -347,53 +384,47 @@ const DocumentUploadSection = ({ formData, setFormData }) => {
   ];
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-12">
-          <div className="alert alert-info mb-4">
-            <FileText className="me-2" size={20} />
-            Please upload the following required documents (PDF format only, max 5MB each)
-          </div>
-          
-          <div className="row g-3">
-            {requiredDocs.map((doc, index) => {
-              const isUploaded = formData.documents?.some(d => d.name === doc);
-              return (
-                <div key={index} className="col-md-6">
-                  <div className={`card h-100 ${isUploaded ? 'border-success' : 'border-warning'}`}>
-                    <div className="card-body text-center p-4">
-                      <Upload className={`mb-3 ${isUploaded ? 'text-success' : 'text-warning'}`} size={32} />
-                      <h6 className="card-title">{doc}</h6>
-                      {isUploaded ? (
-                        <div>
-                          <span className="badge bg-success mb-2">✓ Uploaded</span>
-                          <p className="text-muted small mb-0">
-                            {formData.documents?.find(d => d.name === doc)?.size}
-                          </p>
-                        </div>
-                      ) : (
-                        <button 
-                          className="btn btn-outline-primary btn-sm"
-                          onClick={() => handleFileUpload(doc)}
-                        >
-                          <Upload className="me-1" size={16} />
-                          Upload File
-                        </button>
-                      )}
-                    </div>
+    <div className="document-section">
+      <div className="alert-info">
+        <FileText size={20} />
+        Please upload the following required documents (PDF format only, max 5MB each)
+      </div>
+      
+      <div className="documents-grid">
+        {requiredDocs.map((doc, index) => {
+          const isUploaded = formData.documents?.some(d => d.name === doc);
+          return (
+            <div key={index} className={`document-card ${isUploaded ? 'uploaded' : 'pending'}`}>
+              <div className="document-card-body">
+                <Upload className={`upload-icon ${isUploaded ? 'success' : 'warning'}`} size={32} />
+                <h6 className="document-title">{doc}</h6>
+                {isUploaded ? (
+                  <div className="upload-status">
+                    <span className="status-badge success">✓ Uploaded</span>
+                    <p className="file-size">
+                      {formData.documents?.find(d => d.name === doc)?.size}
+                    </p>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          
-          <div className="mt-4 p-3 bg-light rounded">
-            <h6 className="text-primary mb-2">Upload Summary</h6>
-            <p className="mb-0">
-              <strong>{formData.documents?.length || 0}</strong> of {requiredDocs.length} documents uploaded
-            </p>
-          </div>
-        </div>
+                ) : (
+                  <button 
+                    className="upload-btn"
+                    onClick={() => handleFileUpload(doc)}
+                  >
+                    <Upload size={16} />
+                    Upload File
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      
+      <div className="upload-summary">
+        <h6 className="summary-title">Upload Summary</h6>
+        <p className="summary-text">
+          <strong>{formData.documents?.length || 0}</strong> of {requiredDocs.length} documents uploaded
+        </p>
       </div>
     </div>
   );
