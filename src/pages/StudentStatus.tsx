@@ -21,7 +21,6 @@ const StudentStatus = () => {
     if (currentApp) {
       const parsedApp = JSON.parse(currentApp);
       
-      // Check if status has been updated in the applications list
       const allApplications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
       const updatedApp = allApplications.find((app: Application) => app.id === parsedApp.id);
       
@@ -54,10 +53,10 @@ const StudentStatus = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'pending': return <Clock size={32} className="text-white" />;
-      case 'approved': return <CheckCircle size={32} className="text-white" />;
-      case 'rejected': return <XCircle size={32} className="text-white" />;
-      default: return <FileText size={32} className="text-white" />;
+      case 'pending': return <Clock size={28} className="text-white" />;
+      case 'approved': return <CheckCircle size={28} className="text-white" />;
+      case 'rejected': return <XCircle size={28} className="text-white" />;
+      default: return <FileText size={28} className="text-white" />;
     }
   };
 
@@ -72,21 +71,21 @@ const StudentStatus = () => {
 
   if (!application) {
     return (
-      <div className="min-h-screen bg-gray-50" style={{ background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)' }}>
-        <div className="container mx-auto py-8 px-4">
-          <div className="max-w-2xl mx-auto text-center">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <div className="container mx-auto py-6 px-4 flex-1">
+          <div className="max-width-4xl mx-auto text-center">
             <button 
               onClick={() => navigate('/')}
-              className="inline-flex items-center px-6 py-3 mb-6 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow-lg"
+              className="inline-flex items-center px-6 py-3 mb-6 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               <ArrowLeft className="mr-2" size={16} />
               Submit Application
             </button>
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+            <div className="bg-white rounded-xl shadow-xl border border-gray-200 p-8">
               <div className="text-gray-400 mb-6">
-                <FileText size={64} className="mx-auto" />
+                <FileText size={48} className="mx-auto" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">No Application Found</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-4">No Application Found</h3>
               <p className="text-gray-600">Please submit your application first to view the status.</p>
             </div>
           </div>
@@ -96,127 +95,133 @@ const StudentStatus = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-y-auto" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
-      <div className="container mx-auto py-6 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between items-center mb-6 bg-white rounded-xl shadow-md border border-gray-200 p-4">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Fixed Header */}
+      <div className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3">
+          <div className="max-w-4xl mx-auto flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-800 mb-1">Application Status</h1>
-              <p className="text-gray-600 mb-0">Track your scholarship application progress</p>
+              <h1 className="text-xl font-bold text-gray-800 mb-1">Application Status</h1>
+              <p className="text-gray-600 text-sm">Track your scholarship application progress</p>
             </div>
             <button 
               onClick={() => navigate('/')}
-              className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors border border-gray-300 shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all border border-gray-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
             >
-              <ArrowLeft className="mr-2" size={16} />
+              <ArrowLeft className="mr-2" size={14} />
               Back to Home
             </button>
           </div>
+        </div>
+      </div>
 
-          <div className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="container mx-auto py-4 px-4">
+          <div className="max-w-4xl mx-auto space-y-4">
             {/* Status Card */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden transform hover:scale-[1.01] transition-all">
               <div 
-                className="text-center py-8 px-6"
+                className="text-center py-6 px-6"
                 style={{ background: getStatusBgColor(application.status) }}
               >
-                <div className="mb-4">
+                <div className="mb-3">
                   {getStatusIcon(application.status)}
                 </div>
-                <h2 className="text-white mb-4 text-2xl font-bold">
+                <h2 className="text-white mb-3 text-xl font-bold">
                   Application {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
                 </h2>
-                <p className="text-white mb-0 text-lg">{getStatusMessage(application.status)}</p>
+                <p className="text-white text-base opacity-95">{getStatusMessage(application.status)}</p>
               </div>
             </div>
 
             {/* Admin Comments */}
             {application.adminComments && (
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-                <div className="flex items-center mb-4">
-                  <MessageSquare className="text-blue-600 mr-3" size={24} />
-                  <h6 className="mb-0 font-bold text-blue-600 text-lg">Admin Comments</h6>
+              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-5 transform hover:scale-[1.01] transition-all">
+                <div className="flex items-center mb-3">
+                  <MessageSquare className="text-blue-600 mr-3" size={20} />
+                  <h6 className="mb-0 font-bold text-blue-600">Admin Comments</h6>
                 </div>
-                <p className="mb-0 text-gray-700 leading-relaxed">{application.adminComments}</p>
+                <p className="mb-0 text-gray-700 leading-relaxed text-sm">{application.adminComments}</p>
               </div>
             )}
 
             {/* Application Details */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-              <div className="bg-gray-50 border-b border-gray-200 px-6 py-4">
-                <h5 className="mb-0 font-bold text-gray-800 text-lg">Application Details</h5>
+            <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden transform hover:scale-[1.01] transition-all">
+              <div className="bg-gray-50 border-b border-gray-200 px-5 py-3">
+                <h5 className="mb-0 font-bold text-gray-800">Application Details</h5>
               </div>
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <User className="text-blue-600 mr-4 flex-shrink-0" size={24} />
+              <div className="p-5">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <User className="text-blue-600 mr-3 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{application.studentData.name}</div>
-                        <small className="text-gray-500">Student Name</small>
+                        <div className="font-semibold text-gray-800 text-sm">{application.studentData.name}</div>
+                        <small className="text-gray-500 text-xs">Student Name</small>
                       </div>
                     </div>
                     
-                    <div className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <FileText className="text-blue-600 mr-4 flex-shrink-0" size={24} />
+                    <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <FileText className="text-blue-600 mr-3 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{application.studentData.registration}</div>
-                        <small className="text-gray-500">Registration Number</small>
+                        <div className="font-semibold text-gray-800 text-sm">{application.studentData.registration}</div>
+                        <small className="text-gray-500 text-xs">Registration Number</small>
                       </div>
                     </div>
 
-                    <div className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <GraduationCap className="text-blue-600 mr-4 flex-shrink-0" size={24} />
+                    <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <GraduationCap className="text-blue-600 mr-3 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{application.studentData.department}</div>
-                        <small className="text-gray-500">{application.studentData.class}</small>
+                        <div className="font-semibold text-gray-800 text-sm">{application.studentData.department}</div>
+                        <small className="text-gray-500 text-xs">{application.studentData.class}</small>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <Phone className="text-blue-600 mr-4 flex-shrink-0" size={24} />
+                  <div className="space-y-3">
+                    <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <Phone className="text-blue-600 mr-3 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{application.studentData.studentContact}</div>
-                        <small className="text-gray-500">Contact Number</small>
+                        <div className="font-semibold text-gray-800 text-sm">{application.studentData.studentContact}</div>
+                        <small className="text-gray-500 text-xs">Contact Number</small>
                       </div>
                     </div>
 
-                    <div className="flex items-start p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <MapPin className="text-blue-600 mr-4 mt-1 flex-shrink-0" size={24} />
+                    <div className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <MapPin className="text-blue-600 mr-3 mt-0.5 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{application.studentData.address}</div>
-                        <small className="text-gray-500">Address</small>
+                        <div className="font-semibold text-gray-800 text-sm leading-relaxed">{application.studentData.address}</div>
+                        <small className="text-gray-500 text-xs">Address</small>
                       </div>
                     </div>
 
-                    <div className="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <Calendar className="text-blue-600 mr-4 flex-shrink-0" size={24} />
+                    <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <Calendar className="text-blue-600 mr-3 flex-shrink-0" size={18} />
                       <div>
-                        <div className="font-semibold text-gray-800">{new Date(application.submittedAt).toLocaleDateString()}</div>
-                        <small className="text-gray-500">Submitted On</small>
+                        <div className="font-semibold text-gray-800 text-sm">{new Date(application.submittedAt).toLocaleDateString()}</div>
+                        <small className="text-gray-500 text-xs">Submitted On</small>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <hr className="my-6 border-gray-200" />
+                <hr className="my-4 border-gray-200" />
 
                 <div>
-                  <h6 className="text-blue-600 mb-4 font-bold text-lg">Additional Information</h6>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <strong className="text-gray-800 block mb-2">Father's Name:</strong>
-                      <div className="text-gray-600">{application.studentData.fatherName}</div>
+                  <h6 className="text-blue-600 mb-3 font-bold">Additional Information</h6>
+                  <div className="grid md:grid-cols-3 gap-3">
+                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <strong className="text-gray-800 block mb-1 text-xs">Father's Name:</strong>
+                      <div className="text-gray-600 text-sm">{application.studentData.fatherName}</div>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <strong className="text-gray-800 block mb-2">Session:</strong>
-                      <div className="text-gray-600">{application.studentData.session}</div>
+                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <strong className="text-gray-800 block mb-1 text-xs">Session:</strong>
+                      <div className="text-gray-600 text-sm">{application.studentData.session}</div>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <strong className="text-gray-800 block mb-2">Application ID:</strong>
-                      <div className="text-gray-600">{application.id}</div>
+                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <strong className="text-gray-800 block mb-1 text-xs">Application ID:</strong>
+                      <div className="text-gray-600 text-sm font-mono">{application.id}</div>
                     </div>
                   </div>
                 </div>
