@@ -293,7 +293,7 @@ const StudentApplicationForm = () => {
   return (
     <div className="form-wrapper">
       <div className="form-card">
-        {/* Application Header */}
+        {/* Application Header - Outside blue background */}
         <div className="app-header">
           <h1 className="app-title">Student Scholarship Application Form</h1>
         </div>
@@ -366,7 +366,7 @@ const StudentApplicationForm = () => {
         </div>
       </div>
 
-      {/* Enhanced Confirmation Modal */}
+      {/* Enhanced Confirmation Dialog */}
       {showConfirmation && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -382,13 +382,16 @@ const StudentApplicationForm = () => {
             
             <div className="modal-body">
               <p className="confirmation-text">
-                Please verify your uploaded documents and confirm the following:
+                Please review your uploaded documents and complete the verification checklist below:
               </p>
               
               <div className="documents-list">
+                <h4 style={{ margin: '0 0 20px 0', color: '#000059', fontSize: '1.1rem', fontWeight: '600' }}>
+                  Uploaded Documents
+                </h4>
                 {formData.documents?.map((doc, index) => (
                   <div key={index} className="document-item">
-                    <CheckCircle className="doc-icon" size={20} />
+                    <CheckCircle className="doc-icon" size={24} />
                     <div className="doc-details">
                       <div className="doc-name">{doc.name}</div>
                       <div className="doc-size">{doc.size}</div>
@@ -399,6 +402,10 @@ const StudentApplicationForm = () => {
               
               {/* User Verification Checkboxes */}
               <div className="verification-checklist">
+                <h4 style={{ margin: '0 0 20px 0', color: '#000059', fontSize: '1.1rem', fontWeight: '600' }}>
+                  Verification Checklist
+                </h4>
+                
                 <label className="custom-checkbox">
                   <input
                     type="checkbox"
@@ -406,7 +413,7 @@ const StudentApplicationForm = () => {
                     onChange={() => handleVerificationChange('documentsVerified')}
                   />
                   <span className="checkbox-label">
-                    I have verified that all required documents are uploaded and correct
+                    I have verified that all required documents are uploaded and are accurate
                   </span>
                 </label>
                 
@@ -417,7 +424,7 @@ const StudentApplicationForm = () => {
                     onChange={() => handleVerificationChange('informationAccurate')}
                   />
                   <span className="checkbox-label">
-                    I confirm that all the information provided is accurate and truthful
+                    I confirm that all the information provided in this application is complete, accurate and truthful
                   </span>
                 </label>
                 
@@ -428,13 +435,13 @@ const StudentApplicationForm = () => {
                     onChange={() => handleVerificationChange('termsAccepted')}
                   />
                   <span className="checkbox-label">
-                    I accept the terms and conditions and understand that false information may result in application rejection
+                    I accept the terms and conditions and understand that providing false information may result in application rejection or scholarship cancellation
                   </span>
                 </label>
               </div>
               
               <p className="warning-text">
-                Once submitted, you cannot modify your application. Please ensure all information is correct.
+                ⚠️ Important: Once submitted, you cannot modify your application. Please ensure all information and documents are correct before proceeding.
               </p>
             </div>
             
@@ -450,7 +457,7 @@ const StudentApplicationForm = () => {
                 disabled={!canSubmit}
                 className="modal-btn modal-btn-primary"
               >
-                Confirm & Submit
+                Confirm & Submit Application
               </button>
             </div>
           </div>
